@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Chesterton Reader — An Illustrated Volume</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Cinzel:wght@400;500;600&family=Cinzel+Decorative:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f4ead0;
+    --paper-2:#efe2c2;
+    --paper-edge:#e3d2ab;
+    --ink:#34291a;
+    --ink-soft:#574631;
+    --muted:#897151;
+    --accent:#7c2330;       /* oxblood */
+    --accent-soft:#9a4250;
+    --gilt:#9c6c1f;
+    --gilt-bright:#c08a2c;
+    --rule:rgba(124,35,48,0.38);
+    --rule-soft:rgba(124,35,48,0.16);
+    --leather-1:#2c1d13;
+    --leather-2:#19100a;
+
+    --fam-reason:#3b5a8c;
+    --fam-wonder:#9c6c1f;
+    --fam-faith:#7c2330;
+    --fam-polity:#2f6b4f;
+    --fam-fairy:#5b3f7a;
+
+    --book-w:1160px;
+    --ease:cubic-bezier(.2,.7,.2,1);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    background:
+      radial-gradient(1200px 700px at 50% -10%, rgba(120,80,50,0.30), transparent 60%),
+      radial-gradient(900px 900px at 50% 120%, rgba(70,40,25,0.5), transparent 60%),
+      linear-gradient(160deg,var(--leather-1),var(--leather-2) 70%, #120b06);
+    background-attachment:fixed;
+    color:var(--ink);
+    font-family:"EB Garamond",Georgia,serif;
+    font-size:19px;line-height:1.66;
+    -webkit-font-smoothing:antialiased;
+    min-height:100vh;
+    padding:0 16px 60px;
+  }
+  ::selection{background:rgba(124,35,48,0.22)}
+
+  /* ---------- nav ribbon ---------- */
+  .ribbon{
+    position:sticky;top:0;z-index:40;max-width:var(--book-w);margin:0 auto;
+    background:linear-gradient(180deg,#efe2c2,#e7d6b2);
+    border:1px solid var(--paper-edge);border-top:none;
+    border-bottom:2px solid var(--rule);
+    box-shadow:0 10px 26px -16px rgba(0,0,0,0.6);
+    display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:4px;
+    padding:9px 14px;
+  }
+  .ribbon .nav-btn{
+    font-family:"Cinzel",serif;font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--muted);background:none;border:none;cursor:pointer;padding:6px 12px;position:relative;
+    transition:color .2s var(--ease);
+  }
+  .ribbon .nav-btn:hover{color:var(--accent)}
+  .ribbon .nav-btn.active{color:var(--accent)}
+  .ribbon .nav-btn.active::after{
+    content:"";position:absolute;left:50%;transform:translateX(-50%);bottom:-1px;width:60%;height:2px;
+    background:linear-gradient(90deg,transparent,var(--accent),transparent);
+  }
+  .ribbon .nav-btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .ribbon .sep{color:var(--gilt);opacity:.6;font-size:12px}
+
+  /* ---------- the book / page ---------- */
+  .book{
+    position:relative;max-width:var(--book-w);margin:0 auto;
+    background:
+      linear-gradient(90deg, rgba(0,0,0,0.05), transparent 6%, transparent 94%, rgba(0,0,0,0.05)),
+      radial-gradient(120% 80% at 50% 0%, var(--paper) 60%, var(--paper-2)),
+      var(--paper);
+    color:var(--ink);
+    border:1px solid var(--paper-edge);
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.4) inset,
+      0 40px 90px -40px rgba(0,0,0,0.8),
+      0 0 0 7px rgba(20,12,7,0.0);
+    padding:0;
+    overflow:hidden;
+  }
+  .book::before{ /* paper grain */
+    content:"";position:absolute;inset:0;pointer-events:none;z-index:1;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    opacity:0.045;mix-blend-mode:multiply;
+  }
+  .book::after{ /* aged edge vignette */
+    content:"";position:absolute;inset:0;pointer-events:none;z-index:1;
+    box-shadow:inset 0 0 70px rgba(90,60,30,0.18), inset 0 0 4px rgba(90,60,30,0.25);
+  }
+  .leaf{position:relative;z-index:2;padding:46px clamp(22px,5vw,72px) 30px;display:none}
+  .leaf.active{display:block;animation:pageIn .55s var(--ease) both}
+  @keyframes pageIn{from{opacity:0;transform:translateY(10px) rotateX(2deg)}to{opacity:1;transform:none}}
+
+  /* running head */
+  .runhead{
+    display:flex;justify-content:space-between;align-items:center;
+    font-family:"Cinzel",serif;font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--muted);border-bottom:1px solid var(--rule-soft);padding-bottom:10px;margin-bottom:26px;
+  }
+  .runhead .pg{color:var(--gilt)}
+
+  /* shared type */
+  .chapnum{font-family:"Cinzel",serif;letter-spacing:.3em;font-size:12px;color:var(--gilt);text-transform:uppercase;text-align:center}
+  h2.chaptitle{
+    font-family:"Cormorant Garamond",serif;font-weight:500;text-align:center;
+    font-size:clamp(34px,5.4vw,54px);line-height:1.04;margin:6px 0 4px;color:var(--accent);
+  }
+  h2.chaptitle em{font-style:italic;color:var(--ink)}
+  .chapdek{text-align:center;font-style:italic;color:var(--muted);max-width:60ch;margin:8px auto 0;font-size:18px}
+
+  .fleuron{display:flex;align-items:center;justify-content:center;gap:14px;color:var(--gilt);margin:26px 0}
+  .fleuron::before,.fleuron::after{content:"";height:1px;width:min(120px,22vw);background:linear-gradient(90deg,transparent,var(--rule))}
+  .fleuron span{font-size:18px}
+  .fleuron.tight{margin:16px 0}
+
+  /* ---------- plates (images) ---------- */
+  .plate{margin:30px auto;text-align:center;max-width:520px}
+  .plate.broken{display:none}
+  .plate .frame{
+    position:relative;display:inline-block;padding:9px;background:#fbf5e4;
+    border:1px solid var(--paper-edge);
+    box-shadow:0 2px 0 #d9c79f, 0 18px 36px -22px rgba(0,0,0,0.7);
+  }
+  .plate .frame::after{content:"";position:absolute;inset:9px;border:1px solid var(--rule-soft);pointer-events:none}
+  .plate img{display:block;max-width:100%;height:auto;filter:sepia(.30) contrast(.97) brightness(1.02)}
+  .plate figcaption{
+    font-style:italic;color:var(--muted);font-size:14.5px;margin-top:12px;line-height:1.4;
+  }
+  .plate figcaption .pl{font-family:"Cinzel",serif;font-style:normal;font-size:11px;letter-spacing:.18em;color:var(--gilt);text-transform:uppercase}
+  .plate.right{float:right;max-width:300px;margin:6px 0 22px 32px}
+  .plate.left{float:left;max-width:300px;margin:6px 32px 22px 0}
+  @media(max-width:680px){.plate.right,.plate.left{float:none;max-width:420px;margin:30px auto}}
+
+  /* ---------- FRONTISPIECE ---------- */
+  .front{text-align:center;padding-top:18px}
+  .front .of{font-family:"Cinzel",serif;letter-spacing:.34em;text-transform:uppercase;font-size:12px;color:var(--muted)}
+  .front h1{
+    font-family:"Cinzel Decorative","Cormorant Garamond",serif;font-weight:700;
+    font-size:clamp(40px,8vw,86px);line-height:1.02;margin:14px 0 6px;color:var(--accent);
+    letter-spacing:.02em;
+  }
+  .front .subtitle{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:clamp(19px,2.6vw,26px);color:var(--ink-soft);max-width:46ch;margin:0 auto}
+  .front .epigraph{
+    font-family:"Cormorant Garamond",serif;font-style:italic;font-size:23px;color:var(--accent-soft);
+    max-width:54ch;margin:30px auto 6px;line-height:1.4;
+  }
+  .front .epigraph .by{display:block;font-size:13px;font-style:normal;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-family:"Cinzel",serif;margin-top:12px}
+
+  .contents{max-width:540px;margin:18px auto 0;text-align:left}
+  .contents h3{font-family:"Cinzel",serif;font-size:13px;letter-spacing:.24em;text-transform:uppercase;color:var(--gilt);text-align:center;margin:0 0 16px}
+  .toc-item{
+    display:flex;align-items:baseline;gap:10px;width:100%;background:none;border:none;cursor:pointer;
+    padding:9px 4px;color:var(--ink);font-family:"EB Garamond",serif;text-align:left;
+    border-bottom:1px dotted var(--rule-soft);
+  }
+  .toc-item:hover .t{color:var(--accent)}
+  .toc-item .rn{font-family:"Cinzel",serif;color:var(--gilt);font-size:14px;min-width:26px}
+  .toc-item .t{font-size:21px;font-family:"Cormorant Garamond",serif;font-weight:500;transition:color .2s}
+  .toc-item .lead{flex:1;border-bottom:1px dotted var(--muted);transform:translateY(-4px);opacity:.5}
+  .toc-item .pg{font-family:"Cinzel",serif;color:var(--muted);font-size:13px}
+  .toc-item:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .colophon-note{max-width:54ch;margin:26px auto 0;font-size:16.5px;color:var(--ink-soft);font-style:italic;text-align:center}
+
+  /* ---------- ESSAY (The Man) ---------- */
+  .essay{max-width:66ch;margin:0 auto}
+  .essay p{margin:0 0 20px;text-align:justify;hyphens:auto}
+  .essay p.drop::first-letter{
+    font-family:"Cormorant Garamond",serif;font-size:5.2em;line-height:.7;float:left;
+    color:var(--accent);margin:8px 12px -6px 0;font-weight:600;
+  }
+  .essay .pull{
+    font-family:"Cormorant Garamond",serif;font-style:italic;font-size:27px;line-height:1.3;
+    color:var(--accent);text-align:center;margin:30px 0;padding:0 6%;text-align:center;
+    border-top:1px solid var(--rule-soft);border-bottom:1px solid var(--rule-soft);padding-top:18px;padding-bottom:18px;
+  }
+  .factbar{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:1px;background:var(--rule-soft);border:1px solid var(--rule-soft);margin:34px auto;max-width:640px}
+  .fact{background:var(--paper);padding:18px 12px;text-align:center}
+  .fact .n{font-family:"Cormorant Garamond",serif;font-size:32px;color:var(--accent);line-height:1}
+  .fact .l{font-size:13px;color:var(--muted);margin-top:6px;font-style:italic}
+
+  /* ---------- THEMES catalogue ---------- */
+  .entries{max-width:760px;margin:0 auto}
+  .entry{
+    position:relative;padding:24px 0 22px;border-bottom:1px solid var(--rule-soft);scroll-margin-top:80px;
+  }
+  .entry:last-child{border-bottom:none}
+  .entry.flash{animation:flash 1.6s ease}
+  @keyframes flash{0%{background:rgba(156,108,31,0.18)}100%{background:transparent}}
+  .entry .ehead{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+  .entry .enum{font-family:"Cinzel",serif;font-size:14px;color:var(--gilt);letter-spacing:.1em}
+  .entry h3{font-family:"Cormorant Garamond",serif;font-weight:600;font-size:30px;margin:0;color:var(--ink);line-height:1}
+  .entry .seal{
+    font-family:"Cinzel",serif;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+    color:#fff;padding:3px 10px;border-radius:2px;align-self:center;
+  }
+  .entry p.edesc{margin:12px 0 0;color:var(--ink-soft)}
+  .entry .equote{
+    margin:14px 0 0;padding-left:18px;border-left:2px solid var(--accent);
+    font-family:"Cormorant Garamond",serif;font-style:italic;font-size:21px;color:var(--accent-soft);line-height:1.36;
+  }
+  .entry .equote .esrc{display:block;font-size:13px;font-style:normal;color:var(--muted);margin-top:6px;letter-spacing:.04em}
+  .entry .seealso{margin:14px 0 0;font-size:15px;color:var(--muted)}
+  .entry .seealso b{font-family:"Cinzel",serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gilt);font-weight:500}
+  .entry .xref{color:var(--accent);cursor:pointer;border:none;background:none;font-family:"EB Garamond",serif;font-size:16px;font-style:italic;padding:0 2px}
+  .entry .xref:hover{text-decoration:underline}
+  .entry .xref:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+  /* ---------- TREASURY ---------- */
+  .tr-tools{max-width:760px;margin:0 auto 14px}
+  .qsearch{
+    width:100%;background:#fbf5e4;border:1px solid var(--paper-edge);border-radius:3px;
+    padding:12px 16px;color:var(--ink);font-family:"EB Garamond",serif;font-size:18px;
+    box-shadow:inset 0 2px 6px rgba(90,60,30,0.10);
+  }
+  .qsearch::placeholder{color:var(--muted);font-style:italic}
+  .qsearch:focus{outline:none;border-color:var(--gilt)}
+  .qchips{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;margin:14px auto 0;max-width:820px}
+  .fbtn{
+    font-family:"Cinzel",serif;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+    border:1px solid var(--rule-soft);background:rgba(255,255,255,0.25);color:var(--muted);
+    border-radius:2px;padding:6px 11px;cursor:pointer;transition:.2s;
+  }
+  .fbtn:hover{color:var(--accent);border-color:var(--accent)}
+  .fbtn.on{color:var(--paper);background:var(--accent);border-color:var(--accent)}
+  .fbtn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .qcount{text-align:center;font-style:italic;color:var(--muted);font-size:15px;margin:16px 0 22px}
+  .qwall{columns:300px 2;column-gap:30px;max-width:820px;margin:0 auto}
+  .qbrick{break-inside:avoid;margin:0 0 26px;padding-left:18px;border-left:2px solid var(--rule)}
+  .qbrick blockquote{margin:0;font-family:"Cormorant Garamond",serif;font-size:22px;line-height:1.38;color:var(--ink)}
+  .qbrick blockquote .om{color:var(--accent);font-size:30px;line-height:0;vertical-align:-.2em;margin-right:1px}
+  .qbrick .src{margin-top:9px;font-size:13px;color:var(--muted);font-style:italic}
+  .qbrick .src b{font-style:normal;color:var(--accent);font-weight:500}
+  .qbrick .tts{margin-top:9px;display:flex;flex-wrap:wrap;gap:6px}
+  .qbrick .tt{font-family:"Cinzel",serif;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);border:1px solid var(--rule-soft);border-radius:2px;padding:2px 7px}
+
+  /* ---------- LIBRARY ---------- */
+  .biblio{max-width:760px;margin:0 auto}
+  .bk{position:relative;padding:18px 0 18px 30px;border-bottom:1px solid var(--rule-soft)}
+  .bk::before{content:"\2766";position:absolute;left:0;top:18px;color:var(--gilt);font-size:18px}
+  .bk:last-child{border-bottom:none}
+  .bk .yr{font-family:"Cinzel",serif;font-size:13px;letter-spacing:.12em;color:var(--gilt)}
+  .bk h3{font-family:"Cormorant Garamond",serif;font-weight:600;font-style:italic;font-size:25px;margin:2px 0 2px;color:var(--ink)}
+  .bk h3 .kind{font-family:"Cinzel",serif;font-style:normal;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-left:10px}
+  .bk p{margin:5px 0 0;color:var(--ink-soft);font-size:17px}
+  .bk-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap}
+  .bk-btn{flex-shrink:0;padding-top:4px}
+  .amzn-btn{
+    display:inline-block;font-family:"Cinzel",serif;font-size:11px;letter-spacing:.13em;text-transform:uppercase;
+    color:var(--paper);background:var(--accent);border:1px solid var(--accent);
+    border-radius:2px;padding:7px 14px;text-decoration:none;white-space:nowrap;
+    transition:background .2s,color .2s;
+  }
+  .amzn-btn:hover{background:transparent;color:var(--accent)}
+
+  /* colophon */
+  .colophon{text-align:center;color:var(--muted);font-style:italic;font-size:15px;max-width:54ch;margin:30px auto 0}
+  .colophon b{font-style:normal;color:var(--accent);font-weight:500}
+
+  footer.outer{max-width:var(--book-w);margin:22px auto 0;text-align:center;color:rgba(244,234,208,0.5);font-style:italic;font-size:13.5px}
+
+  @media(max-width:680px){
+    body{font-size:18px}
+    .leaf{padding:34px 20px 24px}
+    .qwall{columns:1}
+    .ribbon{gap:1px}
+    .ribbon .nav-btn{padding:6px 8px;font-size:11px}
+    .ribbon .sep{display:none}
+  }
+  @media(prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  }
+</style>
+</head>
+<body>
+
+<nav class="ribbon" aria-label="Chapters">
+  <button class="nav-btn active" data-go="front">Frontispiece</button><span class="sep">❧</span>
+  <button class="nav-btn" data-go="man">The Man</button><span class="sep">❧</span>
+  <button class="nav-btn" data-go="themes">The Themes</button><span class="sep">❧</span>
+  <button class="nav-btn" data-go="treasury">The Treasury</button><span class="sep">❧</span>
+  <button class="nav-btn" data-go="library">The Library</button>
+</nav>
+
+<div class="book">
+
+  <!-- ============ FRONTISPIECE ============ -->
+  <section class="leaf active" data-chapter="front">
+    <div class="front">
+      <p class="of">Being a Reader of</p>
+      <h1>G·K· Chesterton</h1>
+      <p class="subtitle">The Apostle of Common Sense — his life, his recurring marvels, and a treasury of his own words</p>
+
+      <figure class="plate" style="max-width:340px;margin-top:30px">
+        <div class="frame"><img alt="Portrait photograph of G. K. Chesterton" loading="lazy"
+          src="https://commons.wikimedia.org/wiki/Special:FilePath/Photograph%20of%20Gilbert%20Keith%20Chesterton.jpg?width=600"
+          onerror="this.closest('.plate').classList.add('broken')"></div>
+        <figcaption><span class="pl">Frontispiece</span> · Gilbert Keith Chesterton, 1874–1936</figcaption>
+      </figure>
+
+      <p class="epigraph">“The world will never starve for want of wonders; but only for want of wonder.”
+        <span class="by">Tremendous Trifles, 1909</span></p>
+
+      <div class="fleuron"><span>❦</span></div>
+
+      <div class="contents">
+        <h3>Contents</h3>
+        <button class="toc-item" data-go="man"><span class="rn">I.</span><span class="t">The Man</span><span class="lead"></span><span class="pg">a portrait</span></button>
+        <button class="toc-item" data-go="themes"><span class="rn">II.</span><span class="t">The Themes</span><span class="lead"></span><span class="pg">sixteen marvels</span></button>
+        <button class="toc-item" data-go="treasury"><span class="rn">III.</span><span class="t">The Treasury</span><span class="lead"></span><span class="pg">his own words</span></button>
+        <button class="toc-item" data-go="library"><span class="rn">IV.</span><span class="t">The Library</span><span class="lead"></span><span class="pg">a bibliography</span></button>
+      </div>
+
+      <p class="colophon-note">Turn the pages by the ribbon above, or by the table of contents. Every photograph herein is in the public domain; every quotation is genuine.</p>
+    </div>
+  </section>
+
+  <!-- ============ THE MAN ============ -->
+  <section class="leaf" data-chapter="man">
+    <div class="runhead"><span>A Chesterton Reader</span><span class="pg">Chapter I</span></div>
+    <p class="chapnum">Chapter the First</p>
+    <h2 class="chaptitle">The Laughing <em>Giant</em></h2>
+    <div class="fleuron tight"><span>❧</span></div>
+
+    <div class="essay">
+      <figure class="plate right">
+        <div class="frame"><img alt="G. K. Chesterton at the age of 13" loading="lazy"
+          src="https://commons.wikimedia.org/wiki/Special:FilePath/G.%20K.%20Chesterton%20at%20the%20age%20of%2013.jpg?width=500"
+          onerror="this.closest('.plate').classList.add('broken')"></div>
+        <figcaption><span class="pl">Plate I</span> · The young Gilbert, aged thirteen</figcaption>
+      </figure>
+
+      <p class="drop">Gilbert Keith Chesterton stood six foot four and weighed some twenty stone, wore a cape and a crumpled hat, carried a sword-stick, and was forever losing his way — once wiring his wife from a distant town, “Am in Market Harborough. Where ought I to be?” He was a journalist who became a prophet by accident, a debater so generous that his opponents counted him a friend, and perhaps the only man who could argue you out of despair by making you laugh.</p>
+
+      <p>He began as an illustrator and art-student, haunted in his twenties by a pessimism that touched the edge of madness. He climbed out of it not by argument but by a discovery so simple it sounds like a child's: that existence itself is a gift, and a gift implies a giver, and gratitude is therefore the most reasonable response a man can make to the morning. From that single seed grew everything — the books, the paradoxes, the cheerful and ferocious defence of ordinary things against the clever people who despised them.</p>
+
+      <p class="pull">“The aim of life is appreciation; there is no sense in not appreciating things.”</p>
+
+      <figure class="plate left">
+        <div class="frame"><img alt="G. K. Chesterton and his wife Frances" loading="lazy"
+          src="https://commons.wikimedia.org/wiki/Special:FilePath/G.%20K.%20Chesterton%20and%20Frances%20Blogg%20(cropped).png?width=500"
+          onerror="this.closest('.plate').classList.add('broken')"></div>
+        <figcaption><span class="pl">Plate II</span> · Gilbert and Frances, his wife and anchor</figcaption>
+      </figure>
+
+      <p>His method was paradox, which he insisted was not a trick but a confession: the world is so much stranger than our flat sentences about it that only a sentence turned upside-down can tell the truth. So he wrote that a thing must be loved before it is lovable, that the madman is the man who has lost everything except his reason, that traditions are votes cast by the dead, and that we should defend the indefensible — the family, the fairy tale, the small shop, the common man — precisely because the whole machinery of the age was lined up to crush them.</p>
+
+      <p>He fought giants. Against the eugenists and the imperial cynics, against the worship of mere progress and mere efficiency, he set the hearth, the pub, the parish, and the human face. In <em>Orthodoxy</em> he turned Christianity from a museum-piece into the most dangerous adventure on offer; in <em>The Everlasting Man</em> he made the whole of human history hinge on a child in a cave; in the Father Brown stories he hid a theology of mercy inside a hundred murders.</p>
+
+      <figure class="plate">
+        <div class="frame"><img alt="George Bernard Shaw, Hilaire Belloc and G. K. Chesterton" loading="lazy"
+          src="https://commons.wikimedia.org/wiki/Special:FilePath/Shaw%2C%20Belloc%20e%20Chesterton.jpg?width=760"
+          onerror="this.closest('.plate').classList.add('broken')"></div>
+        <figcaption><span class="pl">Plate III</span> · Among friendly adversaries — Shaw, Belloc, and Chesterton</figcaption>
+      </figure>
+
+      <p class="pull">“Joy, which was the small publicity of the pagan, is the gigantic secret of the Christian.”</p>
+
+      <p>He debated George Bernard Shaw for years across public halls and printed pages, each delighting in the other; he and Hilaire Belloc were yoked so often that Shaw dubbed the pair the “Chesterbelloc.” He argued for the small against the large in everything — small farms, small shops, small nations, small kindnesses — and called the programme Distributism, which was only the wish that the dignity of owning one's own corner of the world be possible for everyone, not the few.</p>
+
+      <p>He died in 1936, mourned by friends and adversaries alike — the Pope sent a telegram naming him “Defender of the Faith.” What he leaves is not a system but a way of seeing: eyes washed clean enough to be astonished at a lamp-post, a leg, a dandelion, a Tuesday. Read him and the ordinary world comes back to you wrapped, like a parcel you had forgotten was a present.</p>
+
+      <div class="factbar">
+        <div class="fact"><div class="n">~100</div><div class="l">books published</div></div>
+        <div class="fact"><div class="n">~4,000</div><div class="l">essays written</div></div>
+        <div class="fact"><div class="n">53</div><div class="l">Father Brown tales</div></div>
+        <div class="fact"><div class="n">6'4"</div><div class="l">in his crumpled hat</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ THE THEMES ============ -->
+  <section class="leaf" data-chapter="themes">
+    <div class="runhead"><span>A Chesterton Reader</span><span class="pg">Chapter II</span></div>
+    <p class="chapnum">Chapter the Second</p>
+    <h2 class="chaptitle">Sixteen Recurring <em>Marvels</em></h2>
+    <p class="chapdek">He wrote on everything, yet returned always to the same handful of wonders. Each entry below carries one of his own lines, and a printed “see also” pointing to the ideas it touches.</p>
+    <div class="fleuron tight"><span>❦</span></div>
+    <div class="entries" id="entries"></div>
+  </section>
+
+  <!-- ============ THE TREASURY ============ -->
+  <section class="leaf" data-chapter="treasury">
+    <div class="runhead"><span>A Chesterton Reader</span><span class="pg">Chapter III</span></div>
+    <p class="chapnum">Chapter the Third</p>
+    <h2 class="chaptitle">A Treasury of his <em>Words</em></h2>
+    <p class="chapdek">Filter the gold by theme, or search a phrase. Every line is genuine Chesterton, from works now in the public domain.</p>
+    <div class="fleuron tight"><span>❧</span></div>
+    <div class="tr-tools">
+      <input class="qsearch" id="qsearch" type="search" placeholder="Search the treasury — try “sun”, “fairy”, “gratitude”…" aria-label="Search quotations">
+      <div class="qchips" id="qchips"></div>
+    </div>
+    <p class="qcount" id="qcount"></p>
+    <div class="qwall" id="qwall"></div>
+  </section>
+
+  <!-- ============ THE LIBRARY ============ -->
+  <section class="leaf" data-chapter="library">
+    <div class="runhead"><span>A Chesterton Reader</span><span class="pg">Chapter IV</span></div>
+    <p class="chapnum">Chapter the Fourth</p>
+    <h2 class="chaptitle">The <em>Library</em></h2>
+    <p class="chapdek">Some hundred books and thousands of essays; here are a few of the cornerstones, in the order they were laid.</p>
+
+    <figure class="plate" style="max-width:300px">
+      <div class="frame"><img alt="Sketch of G. K. Chesterton" loading="lazy"
+        src="https://commons.wikimedia.org/wiki/Special:FilePath/Sketch%20of%20G.%20K.%20Chesterton.jpg?width=460"
+        onerror="this.closest('.plate').classList.add('broken')"></div>
+      <figcaption><span class="pl">Plate IV</span> · The author, sketched</figcaption>
+    </figure>
+
+    <div class="biblio" id="biblio"></div>
+
+    <div class="colophon">
+      Here ends <b>A Chesterton Reader</b>.<br>
+      All photographs: public domain, via Wikimedia Commons. All quotations: public domain. Wander, and keep your sense of wonder.
+    </div>
+  </section>
+
+</div>
+
+<footer class="outer">An illustrated volume in the Chestertonian spirit — a map for the marvel of the ordinary.</footer>
+
+<script>
+"use strict";
+
+/* ---------------- DATA ---------------- */
+const FAMILIES = {
+  reason:{label:"Reason", color:"var(--fam-reason)"},
+  wonder:{label:"Wonder", color:"var(--fam-wonder)"},
+  faith: {label:"Faith",  color:"var(--fam-faith)"},
+  polity:{label:"Polity", color:"var(--fam-polity)"},
+  fairy: {label:"Fairy",  color:"var(--fam-fairy)"}
+};
+
+const THEMES = [
+  {id:"paradox",name:"Paradox",fam:"reason",desc:"His favourite weapon: the truth turned upside-down so that you would finally look at it. A paradox, he held, is truth standing on its head to attract attention — and the world is so strange that only a startling sentence can do it justice."},
+  {id:"wonder",name:"Wonder",fam:"wonder",desc:"The thesis under everything he wrote: that existence is astonishing and we have merely grown used to it. He wanted the first white shock of seeing a tree, a river, one's own two legs."},
+  {id:"gratitude",name:"Gratitude",fam:"wonder",desc:"Happiness was not a mood but a debt joyfully acknowledged. The supreme test was whether you took the cosmos for granted or took it with thanks — and a gift is strange evidence of a Giver."},
+  {id:"orthodoxy",name:"Orthodoxy",fam:"faith",desc:"Far from a dull safety, the creed was the most dangerous adventure of all: a chariot thundering through the ages, leaning but never falling, keeping its balance by a series of hairbreadth escapes."},
+  {id:"fairyland",name:"Fairyland",fam:"fairy",desc:"In the nursery he found his soundest philosophy. Fairy tales taught him the world is wonderful but not necessary — apples are red by a kind of magic, and every gift of light comes with one forbidden door."},
+  {id:"tradition",name:"Tradition",fam:"polity",desc:"He called it the democracy of the dead: the refusal to let the living few outvote the countless many who built the house we live in. To consult only the present moment was the meanest of snobberies."},
+  {id:"commonsense",name:"Common Sense",fam:"polity",desc:"Against the clever theorists he set the ordinary man, who keeps his head precisely because he does not live by his head alone. The important things are too important to be left to experts."},
+  {id:"sanity",name:"Sanity",fam:"reason",desc:"The madman is not the one who has lost his reason but the one who has lost everything except his reason. Mysticism, by leaving one door open onto mystery, is what keeps a man sane."},
+  {id:"humility",name:"Humility",fam:"faith",desc:"The modern world had got modesty exactly backwards — planting doubt in the organ of conviction and certainty in the organ of self. A man should doubt himself and trust the truth, not the reverse."},
+  {id:"joy",name:"Mirth",fam:"wonder",desc:"Joy is the gigantic secret of the Christian, and the test of a good faith is whether you can laugh at it. The angels fly because they take themselves lightly; the self-important devil falls by his own gravity."},
+  {id:"limits",name:"Limits & Liberty",fam:"fairy",desc:"Liberty needs walls the way a game needs a chalk line and children need a fenced cliff-top to play near the edge in safety. The fence is what makes a field a field and not a frightening everywhere."},
+  {id:"courage",name:"Courage",fam:"faith",desc:"A flat contradiction made flesh: a fierce love of living taking the shape of a readiness to die. The soldier wins not by despising life nor by clinging to it, but by holding both at once."},
+  {id:"family",name:"Hearth & Home",fam:"polity",desc:"The smallest kingdom and the truest republic — the one place where the ordinary man could still be king. His Distributism was the wish that this small dignity be possible for everyone."},
+  {id:"cross",name:"The Cross & the Cave",fam:"faith",desc:"At the centre of history he set a paradox no philosophy had dared: omnipotence made an infant, the hands that flung the stars too small to reach the heads of the cattle."},
+  {id:"mysticism",name:"Mysticism",fam:"reason",desc:"The mystic lets one thing stay unexplained, and by that single act of letting the mystery stand he understands everything else. He gets his head into the heavens; the logician tries to get the heavens into his head, and his head splits."},
+  {id:"patriotism",name:"The Small Patria",fam:"polity",desc:"He loved Notting Hill the way other men love empires, and thought a man should be ready to die for his street because it was his. To love a place is to see it forever under a lowering sky of danger."}
+];
+
+const EDGES = [
+  ["paradox","sanity"],["paradox","wonder"],["paradox","orthodoxy"],["paradox","joy"],["paradox","fairyland"],
+  ["wonder","gratitude"],["wonder","fairyland"],["wonder","mysticism"],["wonder","commonsense"],
+  ["gratitude","joy"],["gratitude","limits"],
+  ["orthodoxy","tradition"],["orthodoxy","sanity"],["orthodoxy","courage"],["orthodoxy","cross"],["orthodoxy","humility"],
+  ["fairyland","limits"],["fairyland","mysticism"],
+  ["tradition","commonsense"],["tradition","family"],
+  ["commonsense","sanity"],["commonsense","patriotism"],
+  ["sanity","mysticism"],["sanity","humility"],
+  ["humility","joy"],["joy","courage"],
+  ["limits","family"],["limits","patriotism"],
+  ["courage","cross"],["family","patriotism"],["cross","joy"]
+];
+
+const QUOTES = [
+  {t:"The madman is not the man who has lost his reason. The madman is the man who has lost everything except his reason.",w:"Orthodoxy",y:1908,th:["sanity","paradox"]},
+  {t:"Mysticism keeps men sane. As long as you have mystery you have health; when you destroy mystery you create morbidity.",w:"Orthodoxy",y:1908,th:["sanity","mysticism"]},
+  {t:"The poet only asks to get his head into the heavens. It is the logician who seeks to get the heavens into his head. And it is his head that splits.",w:"Orthodoxy",y:1908,th:["sanity","mysticism","paradox"]},
+  {t:"Poetry is sane because it floats easily in an infinite sea; reason seeks to cross the infinite sea, and so make it finite.",w:"Orthodoxy",y:1908,th:["sanity","mysticism"]},
+  {t:"Angels can fly because they can take themselves lightly.",w:"Orthodoxy",y:1908,th:["joy","humility"]},
+  {t:"Tradition means giving votes to the most obscure of all classes, our ancestors. It is the democracy of the dead.",w:"Orthodoxy",y:1908,th:["tradition"]},
+  {t:"Tradition refuses to submit to the small and arrogant oligarchy of those who merely happen to be walking about.",w:"Orthodoxy",y:1908,th:["tradition","commonsense"]},
+  {t:"It is one thing to describe an interview with a gorgon or a griffin, a creature who does not exist. It is another thing to discover that the rhinoceros does exist and then take pleasure in the fact that he looks as if he didn't.",w:"Orthodoxy",y:1908,th:["wonder","fairyland"]},
+  {t:"The only words that ever satisfy me as describing Nature are the terms used in the fairy books — charm, spell, enchantment. They express the arbitrariness of the fact and its mystery.",w:"Orthodoxy",y:1908,th:["fairyland","wonder"]},
+  {t:"Courage is almost a contradiction in terms. It means a strong desire to live taking the form of a readiness to die.",w:"Orthodoxy",y:1908,th:["courage","paradox"]},
+  {t:"A man was meant to be doubtful about himself, but undoubting about the truth; this has been exactly reversed.",w:"Orthodoxy",y:1908,th:["humility","sanity"]},
+  {t:"The test of all happiness is gratitude.",w:"Orthodoxy",y:1908,th:["gratitude","joy"]},
+  {t:"How much larger your life would be if your self could become smaller in it.",w:"Orthodoxy",y:1908,th:["humility"]},
+  {t:"Men did not love Rome because she was great. She was great because they had loved her.",w:"Orthodoxy",y:1908,th:["patriotism","family"]},
+  {t:"Children have abounding vitality, and so they want things repeated and unchanged. They always say, ‘Do it again’ — and perhaps God is strong enough to exult in monotony. It is possible that He says every morning, ‘Do it again’ to the sun; and every evening, ‘Do it again’ to the moon.",w:"Orthodoxy",y:1908,th:["wonder","joy","gratitude"]},
+  {t:"We have all read the story of the man who has forgotten his name. He can see and appreciate everything; only he cannot remember who he is. Well, every man is that man in the story.",w:"Orthodoxy",y:1908,th:["wonder"]},
+  {t:"Art is limitation; the essence of every picture is the frame.",w:"Orthodoxy",y:1908,th:["limits","fairyland"]},
+  {t:"The moment you step into the world of facts, you step into a world of limits.",w:"Orthodoxy",y:1908,th:["limits"]},
+  {t:"Joy, which was the small publicity of the pagan, is the gigantic secret of the Christian.",w:"Orthodoxy",y:1908,th:["joy","cross"]},
+  {t:"If a man were to shoot his grandmother at a range of five hundred yards, I should call him a good shot, but not necessarily a good man.",w:"Heretics",y:1905,th:["paradox","commonsense"]},
+  {t:"‘My country, right or wrong’ is a thing that no patriot would think of saying except in a desperate case. It is like saying, ‘My mother, drunk or sober.’",w:"The Defendant",y:1901,th:["patriotism"]},
+  {t:"Nonsense and faith — strange as the conjunction may seem — are the two supreme symbolic assertions of the truth.",w:"The Defendant",y:1901,th:["fairyland","paradox"]},
+  {t:"The Christian ideal has not been tried and found wanting. It has been found difficult; and left untried.",w:"What's Wrong with the World",y:1910,th:["orthodoxy","courage"]},
+  {t:"The business of Progressives is to go on making mistakes. The business of Conservatives is to prevent the mistakes from being corrected.",w:"What's Wrong with the World",y:1910,th:["tradition","paradox"]},
+  {t:"Education is simply the soul of a society as it passes from one generation to another.",w:"What's Wrong with the World",y:1910,th:["tradition"]},
+  {t:"The family is the test of freedom; because the family is the only thing that the free man makes for himself and by himself.",w:"What's Wrong with the World",y:1910,th:["family"]},
+  {t:"The world will never starve for want of wonders; but only for want of wonder.",w:"Tremendous Trifles",y:1909,th:["wonder"]},
+  {t:"Lying in bed would be an altogether perfect and supreme experience if only one had a coloured pencil long enough to draw on the ceiling.",w:"Tremendous Trifles",y:1909,th:["joy","wonder"]},
+  {t:"Fairy tales do not give the child his first idea of bogey — the baby has known the dragon intimately ever since he had an imagination. What the fairy tale provides is a St George to kill the dragon.",w:"Tremendous Trifles",y:1909,th:["fairyland","courage"]},
+  {t:"An adventure is only an inconvenience rightly considered. An inconvenience is only an adventure wrongly considered.",w:"All Things Considered",y:1908,th:["joy","wonder"]},
+  {t:"Poets have been mysteriously silent on the subject of cheese.",w:"Alarms and Discursions",y:1910,th:["joy","wonder"]},
+  {t:"There is a great man who makes every man feel small. But the real great man is the man who makes every man feel great.",w:"Charles Dickens",y:1906,th:["commonsense","humility"]},
+  {t:"It is not natural to see man as a natural product. It is not common sense to call man a common object of the country or the seashore.",w:"The Everlasting Man",y:1925,th:["commonsense","cross"]},
+  {t:"The hands that had made the sun and stars were too small to reach the huge heads of the cattle.",w:"The Everlasting Man",y:1925,th:["cross","paradox"]},
+  {t:"Reason and justice grip the remotest and the loneliest star. On plains of opal, under cliffs cut out of pearl, you would still find a notice-board: ‘Thou shalt not steal.’",w:"The Innocence of Father Brown",y:1911,th:["sanity","orthodoxy","mysticism"]},
+  {t:"The criminal is the creative artist; the detective only the critic.",w:"The Innocence of Father Brown",y:1911,th:["paradox"]},
+  {t:"I am always inside a man, moving his arms and legs; but I wait till I know I am inside a murderer, thinking his thoughts, wrestling with his passions, till I have bent myself into the posture of his hunched and peering hatred.",w:"The Secret of Father Brown",y:1927,th:["commonsense","humility","sanity"]},
+  {t:"I tell you naught for your comfort, yea, naught for your desire, save that the sky grows darker yet and the sea rises higher.",w:"The Ballad of the White Horse",y:1911,th:["courage","orthodoxy"]},
+  {t:"For the great Gaels of Ireland are the men that God made mad, for all their wars are merry, and all their songs are sad.",w:"The Ballad of the White Horse",y:1911,th:["joy","courage"]},
+  {t:"The object of opening the mind, as of opening the mouth, is to shut it again on something solid.",w:"Autobiography",y:1936,th:["sanity","orthodoxy"]},
+  {t:"The aim of life is appreciation; there is no sense in not appreciating things, and no sense in having more of them if you have less appreciation of them.",w:"Autobiography",y:1936,th:["gratitude","wonder"]},
+  {t:"If you don't see the use of the fence, I certainly won't let you clear it away. Go away and think. Then, when you can come back and tell me that you do see the use of it, I may allow you to destroy it.",w:"The Thing",y:1929,th:["limits","tradition"]},
+  {t:"Too much capitalism does not mean too many capitalists, but too few capitalists.",w:"The Outline of Sanity",y:1926,th:["family","commonsense"]}
+];
+
+// Amazon affiliate tag — replace YOUR_TAG with your Associates ID (e.g. "mysite-20")
+const AMZN_TAG = "noahroe22-20";
+function amznUrl(asin){ return "https://www.amazon.com/dp/"+asin+"?tag="+AMZN_TAG; }
+
+const WORKS = [
+  {y:1901,t:"The Defendant",k:"essays",asin:"1496083725",d:"Spirited defences of the despised and ordinary — penny dreadfuls, skeletons, nonsense, patriotism. The Chestertonian voice arrives fully formed."},
+  {y:1904,t:"The Napoleon of Notting Hill",k:"novel",asin:"0486424537",d:"A future London where a whimsical king revives medieval pageantry, and a man defends his small suburb with deadly seriousness. A fable of local love against the grey empire of the practical."},
+  {y:1905,t:"Heretics",k:"essays",asin:"1614278369",d:"He attacks the leading thinkers of the day — Shaw, Wells, Kipling — not for their answers but for having no philosophy at all. A critic dared him to state his own; the answer came three years later."},
+  {y:1906,t:"Charles Dickens",k:"criticism",asin:"1684225825",d:"The book that revived Dickens’s reputation, finding in him the democratic joy of caricature — the great man who makes every man feel great."},
+  {y:1908,t:"The Man Who Was Thursday",k:"novel",asin:"0141012072",d:"Subtitled ‘A Nightmare.’ A poet-detective infiltrates a council of anarchists named for the days of the week, and chases the monstrous, laughing Sunday through a dream about order, chaos, and the face of God."},
+  {y:1908,t:"Orthodoxy",k:"apologetics",asin:"1684221072",d:"His masterpiece and spiritual autobiography. He sets out to invent his own heresy and finds he has merely re-discovered the creed — and that the creed is the most thrilling adventure ever offered to man."},
+  {y:1909,t:"Tremendous Trifles",k:"essays",asin:"1614274207",d:"Newspaper pieces on chalk, hats, lamp-posts, lying in bed. The whole gospel of wonder in miniature: the smallest thing, rightly seen, is a tremendous trifle."},
+  {y:1910,t:"What’s Wrong with the World",k:"social criticism",asin:"1614271534",d:"A furious, funny defence of the family, the home, and the common man against efficiency, eugenics, and the experts."},
+  {y:1911,t:"The Ballad of the White Horse",k:"epic poem",asin:"1587310228",d:"King Alfred rallies a doomed Christendom against the heathen — a ringing ballad of faith fighting without the promise of victory, only the command to fight."},
+  {y:1911,t:"The Innocence of Father Brown",k:"detective stories",asin:"0486275108",d:"A short, shabby Catholic priest solves crimes by understanding sin from the inside. Reason gleams through every fog; mercy waits at the end of every clue."},
+  {y:1923,t:"St. Francis of Assisi",k:"biography",asin:"0385029063",d:"A portrait of the saint who saw the whole world upside down, hanging by the mercy of God — and so loved every blade of it the more fiercely."},
+  {y:1925,t:"The Everlasting Man",k:"history",asin:"1614273448",d:"A history of humanity that hinges on two caves: the one where prehistoric man drew, and the one where God was born. The book that helped convert C. S. Lewis."},
+  {y:1926,t:"The Outline of Sanity",k:"economics",asin:"1614272239",d:"The clearest statement of Distributism — his ‘third way’ against both big capitalism and big socialism, arguing that property is good and should be widely shared."},
+  {y:1927,t:"The Secret of Father Brown",k:"detective stories",asin:"0613916964",d:"The priest explains his method: he does not deduce the murderer from outside; he becomes him from within, until he knows exactly how it felt."},
+  {y:1933,t:"St. Thomas Aquinas",k:"biography",asin:"0385092091",d:"Written from memory in a few weeks, yet praised by Thomist scholars as among the best books ever on the saint. A defence of common sense as a holy thing."},
+  {y:1936,t:"Autobiography",k:"memoir",asin:"1587310333",d:"Finished in the year of his death. He looks back not to settle scores but to give thanks — the aim of life, he insists to the last, is appreciation."}
+];
+
+/* ---------------- HELPERS ---------------- */
+const $=(s,r=document)=>r.querySelector(s);
+const $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const themeById=id=>THEMES.find(t=>t.id===id);
+const quotesFor=id=>QUOTES.filter(q=>q.th.includes(id));
+function neighborsOf(id){const s=new Set();for(const[a,b]of EDGES){if(a===id)s.add(b);if(b===id)s.add(a);}return [...s];}
+
+/* ---------------- CHAPTERS ---------------- */
+const reduceMotion=matchMedia('(prefers-reduced-motion: reduce)').matches;
+function goChapter(name){
+  $$('.leaf').forEach(l=>l.classList.toggle('active',l.dataset.chapter===name));
+  $$('.nav-btn').forEach(b=>b.classList.toggle('active',b.dataset.go===name));
+  window.scrollTo({top:0,behavior:reduceMotion?'auto':'smooth'});
+}
+$$('[data-go]').forEach(b=>b.addEventListener('click',()=>goChapter(b.dataset.go)));
+
+/* ---------------- THEMES ENTRIES ---------------- */
+(function buildEntries(){
+  const wrap=$('#entries');
+  THEMES.forEach((t,i)=>{
+    const fam=FAMILIES[t.fam];
+    const q=quotesFor(t.id)[0];
+    const nb=neighborsOf(t.id);
+    const div=document.createElement('article');
+    div.className='entry';div.id='entry-'+t.id;
+    let html='<div class="ehead">'+
+      '<span class="enum">№ '+(i+1)+'</span>'+
+      '<h3>'+t.name+'</h3>'+
+      '<span class="seal" style="background:'+fam.color+'">'+fam.label+'</span>'+
+      '</div>'+
+      '<p class="edesc">'+t.desc+'</p>';
+    if(q){
+      html+='<div class="equote">“'+q.t+'”<span class="esrc">— '+q.w+', '+q.y+'</span></div>';
+    }
+    html+='<p class="seealso"><b>See also</b> &nbsp;';
+    html+=nb.map(n=>'<button class="xref" data-x="'+n+'">'+themeById(n).name+'</button>').join(' · ');
+    html+='</p>';
+    div.innerHTML=html;
+    wrap.appendChild(div);
+  });
+  $$('.xref',wrap).forEach(b=>b.addEventListener('click',()=>{
+    const el=$('#entry-'+b.dataset.x);
+    if(!el)return;
+    el.scrollIntoView({behavior:reduceMotion?'auto':'smooth',block:'center'});
+    el.classList.remove('flash');void el.offsetWidth;el.classList.add('flash');
+  }));
+})();
+
+/* ---------------- TREASURY ---------------- */
+let activeFilter='all',searchTerm='';
+(function buildChips(){
+  const wrap=$('#qchips');
+  const mk=(id,label)=>{
+    const b=document.createElement('button');
+    b.className='fbtn'+(id==='all'?' on':'');b.dataset.f=id;b.textContent=label;
+    b.addEventListener('click',()=>{activeFilter=id;$$('.fbtn',wrap).forEach(x=>x.classList.toggle('on',x===b));renderQuotes();});
+    wrap.appendChild(b);
+  };
+  mk('all','All');
+  THEMES.forEach(t=>mk(t.id,t.name));
+})();
+$('#qsearch').addEventListener('input',e=>{searchTerm=e.target.value.toLowerCase().trim();renderQuotes();});
+
+function renderQuotes(){
+  const wall=$('#qwall');
+  const list=QUOTES.filter(q=>{
+    const f=activeFilter==='all'||q.th.includes(activeFilter);
+    const s=!searchTerm||(q.t+' '+q.w).toLowerCase().includes(searchTerm);
+    return f&&s;
+  });
+  $('#qcount').textContent=list.length+(list.length===1?' quotation':' quotations')+
+    (activeFilter==='all'?'':' upon “'+themeById(activeFilter).name+'”')+
+    (searchTerm?' matching “'+searchTerm+'”':'');
+  wall.innerHTML=list.map(q=>{
+    const tags=q.th.map(id=>'<span class="tt">'+themeById(id).name+'</span>').join('');
+    return '<div class="qbrick"><blockquote><span class="om">“</span>'+q.t+'”</blockquote>'+
+      '<div class="src"><b>'+q.w+'</b> · '+q.y+'</div>'+
+      '<div class="tts">'+tags+'</div></div>';
+  }).join('')||'<p style="color:var(--muted);font-style:italic;text-align:center">No quotation answers to that. Try another word, or let the search go empty and wander instead.</p>';
+}
+renderQuotes();
+
+/* ---------------- LIBRARY ---------------- */
+(function buildBiblio(){
+  const wrap=$('#biblio');
+  WORKS.forEach(wk=>{
+    const d=document.createElement('div');d.className='bk';
+    const btn = wk.asin
+      ? '<a class="amzn-btn" href="'+amznUrl(wk.asin)+'" target="_blank" rel="noopener sponsored">Buy on Amazon ↗</a>'
+      : '';
+    d.innerHTML='<div class="bk-head">'+
+        '<div><div class="yr">'+wk.y+'</div>'+
+        '<h3>'+wk.t+'<span class="kind">'+wk.k+'</span></h3></div>'+
+        (btn?'<div class="bk-btn">'+btn+'</div>':'')+
+      '</div>'+
+      '<p>'+wk.d+'</p>';
+    wrap.appendChild(d);
+  });
+})();
+</script>
+</body>
+</html>
