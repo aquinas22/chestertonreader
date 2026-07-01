@@ -212,11 +212,6 @@
     font-family:"Cormorant Garamond",serif;font-style:italic;font-size:21px;color:var(--accent-soft);line-height:1.36;
   }
   .entry .equote .esrc{display:block;font-size:13px;font-style:normal;color:var(--muted);margin-top:6px;letter-spacing:.04em}
-  .entry .seealso{margin:14px 0 0;font-size:15px;color:var(--muted)}
-  .entry .seealso b{font-family:"Cinzel",serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gilt);font-weight:500}
-  .entry .xref{color:var(--accent);cursor:pointer;border:none;background:none;font-family:"EB Garamond",serif;font-size:16px;font-style:italic;padding:0 2px}
-  .entry .xref:hover{text-decoration:underline}
-  .entry .xref:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 
   /* ---------- TREASURY ---------- */
   .tr-tools{max-width:760px;margin:0 auto 14px}
@@ -227,15 +222,6 @@
   }
   .qsearch::placeholder{color:var(--muted);font-style:italic}
   .qsearch:focus{outline:none;border-color:var(--gilt)}
-  .qchips{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;margin:14px auto 0;max-width:820px}
-  .fbtn{
-    font-family:"Cinzel",serif;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
-    border:1px solid var(--rule-soft);background:rgba(255,255,255,0.25);color:var(--muted);
-    border-radius:2px;padding:6px 11px;cursor:pointer;transition:.2s;
-  }
-  .fbtn:hover{color:var(--accent);border-color:var(--accent)}
-  .fbtn.on{color:var(--paper);background:var(--accent);border-color:var(--accent)}
-  .fbtn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
   .qcount{text-align:center;font-style:italic;color:var(--muted);font-size:15px;margin:16px 0 22px}
   .qwall{columns:300px 2;column-gap:30px;max-width:820px;margin:0 auto}
   .qbrick{break-inside:avoid;margin:0 0 26px;padding-left:18px;border-left:2px solid var(--rule)}
@@ -243,8 +229,29 @@
   .qbrick blockquote .om{color:var(--accent);font-size:30px;line-height:0;vertical-align:-.2em;margin-right:1px}
   .qbrick .src{margin-top:9px;font-size:13px;color:var(--muted);font-style:italic}
   .qbrick .src b{font-style:normal;color:var(--accent);font-weight:500}
-  .qbrick .tts{margin-top:9px;display:flex;flex-wrap:wrap;gap:6px}
-  .qbrick .tt{font-family:"Cinzel",serif;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);border:1px solid var(--rule-soft);border-radius:2px;padding:2px 7px}
+
+  /* ---------- SUBSCRIBE ---------- */
+  .subscribe-box{
+    max-width:480px;margin:36px auto 0;text-align:center;
+    border-top:1px solid var(--rule-soft);padding-top:30px;
+  }
+  .sub-label{font-family:"Cinzel",serif;font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--gilt);margin:0 0 6px}
+  .sub-dek{font-style:italic;color:var(--ink-soft);font-size:17px;margin:0 0 18px}
+  .sub-form{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+  .sub-input{
+    flex:1;min-width:200px;background:#fbf5e4;border:1px solid var(--paper-edge);border-radius:3px;
+    padding:10px 14px;color:var(--ink);font-family:"EB Garamond",serif;font-size:17px;
+    box-shadow:inset 0 2px 6px rgba(90,60,30,0.10);
+  }
+  .sub-input::placeholder{color:var(--muted);font-style:italic}
+  .sub-input:focus{outline:none;border-color:var(--gilt)}
+  .sub-btn{
+    font-family:"Cinzel",serif;font-size:11px;letter-spacing:.13em;text-transform:uppercase;
+    color:var(--paper);background:var(--accent);border:1px solid var(--accent);
+    border-radius:2px;padding:10px 18px;cursor:pointer;white-space:nowrap;transition:.2s;
+  }
+  .sub-btn:hover{background:transparent;color:var(--accent)}
+  .sub-note{font-size:13px;color:var(--muted);font-style:italic;margin:10px 0 0}
 
   /* ---------- LIBRARY ---------- */
   .biblio{max-width:760px;margin:0 auto}
@@ -323,7 +330,18 @@
         <button class="toc-item" data-go="library"><span class="rn">IV.</span><span class="t">The Library</span><span class="lead"></span><span class="pg">a bibliography</span></button>
       </div>
 
-      <p class="colophon-note">Turn the pages by the ribbon above, or by the table of contents. Every photograph herein is in the public domain; every quotation is genuine.</p>
+      <div class="subscribe-box">
+        <p class="sub-label">A Daily Chesterton</p>
+        <p class="sub-dek">One line from the Apostle of Common Sense, each morning in your inbox.</p>
+        <!-- Replace action URL with your Kit/ConvertKit or Buttondown embed URL -->
+        <form class="sub-form" action="https://app.kit.com/forms/YOUR_FORM_ID/subscriptions" method="POST" target="_blank">
+          <input class="sub-input" type="email" name="email_address" placeholder="your@email.com" required aria-label="Email address">
+          <button class="sub-btn" type="submit">Subscribe</button>
+        </form>
+        <p class="sub-note">No cost. No nonsense. Unsubscribe at any time.</p>
+      </div>
+
+      <p class="colophon-note" style="margin-top:28px">Turn the pages by the ribbon above, or by the table of contents. Every photograph herein is in the public domain; every quotation is genuine.</p>
     </div>
   </section>
 
@@ -352,7 +370,7 @@
         <div class="frame"><img alt="G. K. Chesterton and his wife Frances" loading="lazy"
           src="https://commons.wikimedia.org/wiki/Special:FilePath/G.%20K.%20Chesterton%20and%20Frances%20Blogg%20(cropped).png?width=500"
           onerror="this.closest('.plate').classList.add('broken')"></div>
-        <figcaption><span class="pl">Plate II</span>Gilbert was a cheery fellow, always thinking and seldom aware of his surroundings </figcaption>
+        <figcaption><span class="pl">Plate II</span> · Gilbert with Frances Blogg, his wife and lifelong anchor</figcaption>
       </figure>
 
       <p>His method was paradox, which he insisted was not a trick but a confession: the world is so much stranger than our flat sentences about it that only a sentence turned upside-down can tell the truth. So he wrote that a thing must be loved before it is lovable, that the madman is the man who has lost everything except his reason, that traditions are votes cast by the dead, and that we should defend the indefensible — the family, the fairy tale, the small shop, the common man — precisely because the whole machinery of the age was lined up to crush them.</p>
@@ -396,11 +414,10 @@
     <div class="runhead"><span>A Chesterton Reader</span><span class="pg">Chapter III</span></div>
     <p class="chapnum">Chapter the Third</p>
     <h2 class="chaptitle">A Treasury of his <em>Words</em></h2>
-    <p class="chapdek">Filter the gold by theme, or search a phrase. Every line is genuine Chesterton, from works now in the public domain.</p>
+    <p class="chapdek">Search the gold by any word or phrase. Every line is genuine Chesterton, from works now in the public domain.</p>
     <div class="fleuron tight"><span>❧</span></div>
     <div class="tr-tools">
-      <input class="qsearch" id="qsearch" type="search" placeholder="Search the treasury — try “sun”, “fairy”, “gratitude”…" aria-label="Search quotations">
-      <div class="qchips" id="qchips"></div>
+      <input class="qsearch" id="qsearch" type="search" placeholder="Search — try “sun”, “fairy”, “gratitude”, “madman”…" aria-label="Search quotations">
     </div>
     <p class="qcount" id="qcount"></p>
     <div class="qwall" id="qwall"></div>
@@ -463,21 +480,35 @@ const THEMES = [
   {id:"patriotism",name:"The Small Patria",fam:"polity",desc:"He loved Notting Hill the way other men love empires, and thought a man should be ready to die for his street because it was his. To love a place is to see it forever under a lowering sky of danger."}
 ];
 
-const EDGES = [
-  ["paradox","sanity"],["paradox","wonder"],["paradox","orthodoxy"],["paradox","joy"],["paradox","fairyland"],
-  ["wonder","gratitude"],["wonder","fairyland"],["wonder","mysticism"],["wonder","commonsense"],
-  ["gratitude","joy"],["gratitude","limits"],
-  ["orthodoxy","tradition"],["orthodoxy","sanity"],["orthodoxy","courage"],["orthodoxy","cross"],["orthodoxy","humility"],
-  ["fairyland","limits"],["fairyland","mysticism"],
-  ["tradition","commonsense"],["tradition","family"],
-  ["commonsense","sanity"],["commonsense","patriotism"],
-  ["sanity","mysticism"],["sanity","humility"],
-  ["humility","joy"],["joy","courage"],
-  ["limits","family"],["limits","patriotism"],
-  ["courage","cross"],["family","patriotism"],["cross","joy"]
-];
 
 const QUOTES = [
+  /* "The Donkey" (Wild Knight and Other Poems, 1900) */
+  {t:"When fishes flew and forests walked and figs grew upon thorn, some moment when the moon was blood then surely I was born.",w:"The Donkey",y:1900,th:["wonder","fairyland"]},
+  {t:"Fools! For I also had my hour; one far fierce hour and sweet: there was a shout about my ears, and palms before my feet.",w:"The Donkey",y:1900,th:["joy","humility","cross"]},
+  /* "The House of Christmas" (Wild Knight and Other Poems, 1900) */
+  {t:"To the place where God was homeless and all men are at home.",w:"The House of Christmas",y:1900,th:["cross","wonder","family"]},
+  /* The Defendant (1901) */
+  {t:"’My country, right or wrong’ is a thing that no patriot would think of saying except in a desperate case. It is like saying, ‘My mother, drunk or sober.’",w:"The Defendant",y:1901,th:["patriotism"]},
+  {t:"Nonsense and faith — strange as the conjunction may seem — are the two supreme symbolic assertions of the truth.",w:"The Defendant",y:1901,th:["fairyland","paradox"]},
+  {t:"A man looking at a hippopotamus may sometimes be tempted to regard a hippopotamus as an enormous mistake; but he is also bound to confess that a fortunate inferiority prevents him personally from making such mistakes.",w:"The Defendant",y:1901,th:["wonder","humility"]},
+  {t:"Literature is a luxury; fiction is a necessity.",w:"The Defendant",y:1901,th:["fairyland","commonsense"]},
+  /* The Napoleon of Notting Hill (1904) */
+  {t:"The human race, to which so many of my readers belong, has been playing at children’s games from the beginning, and will probably do it till the end, which is a nuisance for the few people who grow up.",w:"The Napoleon of Notting Hill",y:1904,th:["wonder","commonsense"]},
+  /* Heretics (1905) */
+  {t:"If a man were to shoot his grandmother at a range of five hundred yards, I should call him a good shot, but not necessarily a good man.",w:"Heretics",y:1905,th:["paradox","commonsense"]},
+  {t:"There is no such thing on earth as an uninteresting subject; the only thing that can exist is an uninterested person.",w:"Heretics",y:1905,th:["wonder","commonsense"]},
+  {t:"It is not bigotry to be certain we are right; but it is bigotry to be unable to imagine how we might possibly have gone wrong.",w:"Heretics",y:1905,th:["humility","sanity"]},
+  {t:"Drink because you are happy, but never because you are miserable.",w:"Heretics",y:1905,th:["joy","gratitude"]},
+  {t:"The artistic temperament is a disease that afflicts amateurs.",w:"Heretics",y:1905,th:["paradox","commonsense"]},
+  {t:"A good novel tells us the truth about its hero; but a bad novel tells us the truth about its author.",w:"Heretics",y:1905,th:["paradox","sanity"]},
+  /* Charles Dickens (1906) */
+  {t:"There is a great man who makes every man feel small. But the real great man is the man who makes every man feel great.",w:"Charles Dickens",y:1906,th:["commonsense","humility"]},
+  {t:"Dickens did not write what the people wanted. Dickens wanted what the people wanted.",w:"Charles Dickens",y:1906,th:["commonsense","wonder"]},
+  /* Introduction to the Book of Job (1907) */
+  {t:"The riddles of God are more satisfying than the solutions of man.",w:"Introduction to the Book of Job",y:1907,th:["mysticism","wonder","sanity"]},
+  /* "The Secret People" (poem, 1907) */
+  {t:"Smile at us, pay us, pass us; but do not quite forget; for we are the people of England, that never have spoken yet.",w:"The Secret People",y:1907,th:["patriotism","commonsense","tradition"]},
+  /* Orthodoxy (1908) */
   {t:"The madman is not the man who has lost his reason. The madman is the man who has lost everything except his reason.",w:"Orthodoxy",y:1908,th:["sanity","paradox"]},
   {t:"Mysticism keeps men sane. As long as you have mystery you have health; when you destroy mystery you create morbidity.",w:"Orthodoxy",y:1908,th:["sanity","mysticism"]},
   {t:"The poet only asks to get his head into the heavens. It is the logician who seeks to get the heavens into his head. And it is his head that splits.",w:"Orthodoxy",y:1908,th:["sanity","mysticism","paradox"]},
@@ -485,7 +516,7 @@ const QUOTES = [
   {t:"Angels can fly because they can take themselves lightly.",w:"Orthodoxy",y:1908,th:["joy","humility"]},
   {t:"Tradition means giving votes to the most obscure of all classes, our ancestors. It is the democracy of the dead.",w:"Orthodoxy",y:1908,th:["tradition"]},
   {t:"Tradition refuses to submit to the small and arrogant oligarchy of those who merely happen to be walking about.",w:"Orthodoxy",y:1908,th:["tradition","commonsense"]},
-  {t:"It is one thing to describe an interview with a gorgon or a griffin, a creature who does not exist. It is another thing to discover that the rhinoceros does exist and then take pleasure in the fact that he looks as if he didn't.",w:"Orthodoxy",y:1908,th:["wonder","fairyland"]},
+  {t:"It is one thing to describe an interview with a gorgon or a griffin, a creature who does not exist. It is another thing to discover that the rhinoceros does exist and then take pleasure in the fact that he looks as if he didn’t.",w:"Orthodoxy",y:1908,th:["wonder","fairyland"]},
   {t:"The only words that ever satisfy me as describing Nature are the terms used in the fairy books — charm, spell, enchantment. They express the arbitrariness of the fact and its mystery.",w:"Orthodoxy",y:1908,th:["fairyland","wonder"]},
   {t:"Courage is almost a contradiction in terms. It means a strong desire to live taking the form of a readiness to die.",w:"Orthodoxy",y:1908,th:["courage","paradox"]},
   {t:"A man was meant to be doubtful about himself, but undoubting about the truth; this has been exactly reversed.",w:"Orthodoxy",y:1908,th:["humility","sanity"]},
@@ -497,30 +528,80 @@ const QUOTES = [
   {t:"Art is limitation; the essence of every picture is the frame.",w:"Orthodoxy",y:1908,th:["limits","fairyland"]},
   {t:"The moment you step into the world of facts, you step into a world of limits.",w:"Orthodoxy",y:1908,th:["limits"]},
   {t:"Joy, which was the small publicity of the pagan, is the gigantic secret of the Christian.",w:"Orthodoxy",y:1908,th:["joy","cross"]},
-  {t:"If a man were to shoot his grandmother at a range of five hundred yards, I should call him a good shot, but not necessarily a good man.",w:"Heretics",y:1905,th:["paradox","commonsense"]},
-  {t:"‘My country, right or wrong’ is a thing that no patriot would think of saying except in a desperate case. It is like saying, ‘My mother, drunk or sober.’",w:"The Defendant",y:1901,th:["patriotism"]},
-  {t:"Nonsense and faith — strange as the conjunction may seem — are the two supreme symbolic assertions of the truth.",w:"The Defendant",y:1901,th:["fairyland","paradox"]},
-  {t:"The Christian ideal has not been tried and found wanting. It has been found difficult; and left untried.",w:"What's Wrong with the World",y:1910,th:["orthodoxy","courage"]},
-  {t:"The business of Progressives is to go on making mistakes. The business of Conservatives is to prevent the mistakes from being corrected.",w:"What's Wrong with the World",y:1910,th:["tradition","paradox"]},
-  {t:"Education is simply the soul of a society as it passes from one generation to another.",w:"What's Wrong with the World",y:1910,th:["tradition"]},
-  {t:"The family is the test of freedom; because the family is the only thing that the free man makes for himself and by himself.",w:"What's Wrong with the World",y:1910,th:["family"]},
+  {t:"The men who really believe in themselves are all in lunatic asylums.",w:"Orthodoxy",y:1908,th:["sanity","humility"]},
+  {t:"If you argue with a madman, it is extremely probable that you will get the worst of it.",w:"Orthodoxy",y:1908,th:["sanity","paradox"]},
+  {t:"The whole secret of mysticism is this: that man can understand everything by the help of what he does not understand.",w:"Orthodoxy",y:1908,th:["mysticism","sanity"]},
+  {t:"We should thank God for beer and Burgundy by not drinking too much of them.",w:"Orthodoxy",y:1908,th:["gratitude","limits","joy"]},
+  {t:"The more I considered Christianity, the more I found that while it had established a rule and order, the chief aim of that order was to give room for good things to run wild.",w:"Orthodoxy",y:1908,th:["orthodoxy","limits","fairyland"]},
+  {t:"The modern world is not evil; in some ways the modern world is far too good. It is full of wild and wasted virtues.",w:"Orthodoxy",y:1908,th:["paradox","commonsense"]},
+  {t:"I had always believed that the world involved magic: now I thought that perhaps it involved a magician.",w:"Orthodoxy",y:1908,th:["wonder","mysticism","fairyland"]},
+  {t:"Progress should mean that we are always changing the world to suit the vision. Progress does mean (just now) that we are always changing the vision.",w:"Orthodoxy",y:1908,th:["tradition","paradox","sanity"]},
+  {t:"Keeping to one woman is a small price for so much as seeing one woman. To complain that I could only be married once was like complaining that I had only been born once.",w:"Orthodoxy",y:1908,th:["family","limits","wonder"]},
+  {t:"I am the man who with the utmost daring discovered what had been discovered before.",w:"Orthodoxy",y:1908,th:["orthodoxy","wonder","humility"]},
+  /* All Things Considered (1908) */
+  {t:"An adventure is only an inconvenience rightly considered. An inconvenience is only an adventure wrongly considered.",w:"All Things Considered",y:1908,th:["joy","wonder"]},
+  /* Tremendous Trifles (1909) */
   {t:"The world will never starve for want of wonders; but only for want of wonder.",w:"Tremendous Trifles",y:1909,th:["wonder"]},
   {t:"Lying in bed would be an altogether perfect and supreme experience if only one had a coloured pencil long enough to draw on the ceiling.",w:"Tremendous Trifles",y:1909,th:["joy","wonder"]},
   {t:"Fairy tales do not give the child his first idea of bogey — the baby has known the dragon intimately ever since he had an imagination. What the fairy tale provides is a St George to kill the dragon.",w:"Tremendous Trifles",y:1909,th:["fairyland","courage"]},
-  {t:"An adventure is only an inconvenience rightly considered. An inconvenience is only an adventure wrongly considered.",w:"All Things Considered",y:1908,th:["joy","wonder"]},
+  {t:"The way to love anything is to realise that it might be lost.",w:"Tremendous Trifles",y:1909,th:["wonder","gratitude","limits"]},
+  {t:"The whole object of travel is not to set foot on foreign land; it is at last to set foot on one’s own country as a foreign land.",w:"Tremendous Trifles",y:1909,th:["wonder","patriotism","gratitude"]},
+  /* What’s Wrong with the World (1910) */
+  {t:"The Christian ideal has not been tried and found wanting. It has been found difficult; and left untried.",w:"What’s Wrong with the World",y:1910,th:["orthodoxy","courage"]},
+  {t:"The business of Progressives is to go on making mistakes. The business of Conservatives is to prevent the mistakes from being corrected.",w:"What’s Wrong with the World",y:1910,th:["tradition","paradox"]},
+  {t:"Education is simply the soul of a society as it passes from one generation to another.",w:"What’s Wrong with the World",y:1910,th:["tradition"]},
+  {t:"The family is the test of freedom; because the family is the only thing that the free man makes for himself and by himself.",w:"What’s Wrong with the World",y:1910,th:["family"]},
+  {t:"Feminism is mixed up with a muddled idea that women are free when they serve their employers but slaves when they help their husbands.",w:"What’s Wrong with the World",y:1910,th:["family","paradox","commonsense"]},
+  /* Alarms and Discursions (1910) */
   {t:"Poets have been mysteriously silent on the subject of cheese.",w:"Alarms and Discursions",y:1910,th:["joy","wonder"]},
-  {t:"There is a great man who makes every man feel small. But the real great man is the man who makes every man feel great.",w:"Charles Dickens",y:1906,th:["commonsense","humility"]},
-  {t:"It is not natural to see man as a natural product. It is not common sense to call man a common object of the country or the seashore.",w:"The Everlasting Man",y:1925,th:["commonsense","cross"]},
-  {t:"The hands that had made the sun and stars were too small to reach the huge heads of the cattle.",w:"The Everlasting Man",y:1925,th:["cross","paradox"]},
+  /* The Innocence of Father Brown (1911) */
   {t:"Reason and justice grip the remotest and the loneliest star. On plains of opal, under cliffs cut out of pearl, you would still find a notice-board: ‘Thou shalt not steal.’",w:"The Innocence of Father Brown",y:1911,th:["sanity","orthodoxy","mysticism"]},
   {t:"The criminal is the creative artist; the detective only the critic.",w:"The Innocence of Father Brown",y:1911,th:["paradox"]},
-  {t:"I am always inside a man, moving his arms and legs; but I wait till I know I am inside a murderer, thinking his thoughts, wrestling with his passions, till I have bent myself into the posture of his hunched and peering hatred.",w:"The Secret of Father Brown",y:1927,th:["commonsense","humility","sanity"]},
+  {t:"Where does a wise man hide a leaf? In a forest. But what does he do if there is no forest? He grows a forest to hide it in.",w:"The Innocence of Father Brown",y:1911,th:["paradox","sanity","commonsense"]},
+  /* The Ballad of the White Horse (1911) */
   {t:"I tell you naught for your comfort, yea, naught for your desire, save that the sky grows darker yet and the sea rises higher.",w:"The Ballad of the White Horse",y:1911,th:["courage","orthodoxy"]},
-  {t:"For the great Gaels of Ireland are the men that God made mad, for all their wars are merry, and all their songs are sad.",w:"The Ballad of the White Horse",y:1911,th:["joy","courage"]},
+  {t:"For the great Gaels of Ireland are the men that God made mad, for all their wars are merry, and all their songs are sad.",w:"The Ballad of the White Horse",y:1911,th:["joy","courage","paradox"]},
+  {t:"For the end of the world was long ago, and all we dwell today as children of some second birth, like a strange people left on earth after a judgment day.",w:"The Ballad of the White Horse",y:1911,th:["courage","cross","wonder"]},
+  /* Lepanto (poem, 1911) */
+  {t:"Strong gongs groaning as the guns boom far, Don John of Austria is going to the war.",w:"Lepanto",y:1911,th:["courage","patriotism"]},
+  {t:"It is he that saith not ‘Kismet’; it is he that knows not Fate; it is Richard, it is Raymond, it is Godfrey in the gate!",w:"Lepanto",y:1911,th:["courage","tradition","orthodoxy"]},
+  /* Illustrated London News (1911) */
+  {t:"The true soldier fights not because he hates what is in front of him, but because he loves what is behind him.",w:"Illustrated London News",y:1911,th:["courage","patriotism","family"]},
+  /* The Wisdom of Father Brown (1914) */
+  {t:"Journalism largely consists in saying ‘Lord Jones is Dead’ to people who never knew Lord Jones was alive.",w:"The Wisdom of Father Brown",y:1914,th:["paradox","commonsense"]},
+  /* The Flying Inn (1914) */
+  {t:"Before the Roman came to Rye or out to Severn strode, the rolling English drunkard made the rolling English road.",w:"The Flying Inn",y:1914,th:["tradition","patriotism","joy"]},
+  {t:"I don’t care where the water goes if it doesn’t get into the wine.",w:"The Flying Inn",y:1914,th:["joy","limits"]},
+  /* A Short History of England (1917) */
+  {t:"I would maintain that thanks are the highest form of thought; and that gratitude is happiness doubled by wonder.",w:"A Short History of England",y:1917,th:["gratitude","wonder","joy"]},
+  {t:"To have a right to do a thing is not at all the same as to be right in doing it.",w:"A Short History of England",y:1917,th:["sanity","commonsense","limits"]},
+  /* What I Saw in America (1922) */
+  {t:"The Declaration of Independence dogmatically bases all rights on the fact that God created all men equal; and it is right; for if they were not created equal, they were not created at all.",w:"What I Saw in America",y:1922,th:["commonsense","paradox","tradition"]},
+  /* St. Francis of Assisi (1923) */
+  {t:"He treated the whole mob of men as a mob of kings.",w:"St. Francis of Assisi",y:1923,th:["wonder","humility","commonsense"]},
+  /* The Everlasting Man (1925) */
+  {t:"It is not natural to see man as a natural product. It is not common sense to call man a common object of the country or the seashore.",w:"The Everlasting Man",y:1925,th:["commonsense","cross"]},
+  {t:"The hands that had made the sun and stars were too small to reach the huge heads of the cattle.",w:"The Everlasting Man",y:1925,th:["cross","paradox"]},
+  {t:"A dead thing can go with the stream, but only a living thing can go against it.",w:"The Everlasting Man",y:1925,th:["courage","sanity","orthodoxy"]},
+  {t:"Art is the signature of man.",w:"The Everlasting Man",y:1925,th:["wonder","commonsense"]},
+  {t:"Christendom has had a series of revolutions and in each one of them Christianity has died. Christianity has died many times and risen again; for it had a God who knew the way out of the grave.",w:"The Everlasting Man",y:1925,th:["orthodoxy","courage","cross"]},
+  /* The Outline of Sanity (1926) */
+  {t:"Too much capitalism does not mean too many capitalists, but too few capitalists.",w:"The Outline of Sanity",y:1926,th:["family","commonsense"]},
+  /* Illustrated London News (1926) */
+  {t:"Without education, we are in a horrible and deadly danger of taking educated people seriously.",w:"Illustrated London News",y:1926,th:["commonsense","sanity","paradox"]},
+  /* The Secret of Father Brown (1927) */
+  {t:"I am always inside a man, moving his arms and legs; but I wait till I know I am inside a murderer, thinking his thoughts, wrestling with his passions, till I have bent myself into the posture of his hunched and peering hatred.",w:"The Secret of Father Brown",y:1927,th:["commonsense","humility","sanity"]},
+  /* The Thing (1929) */
+  {t:"If you don’t see the use of the fence, I certainly won’t let you clear it away. Go away and think. Then, when you can come back and tell me that you do see the use of it, I may allow you to destroy it.",w:"The Thing",y:1929,th:["limits","tradition"]},
+  /* Illustrated London News (1930) */
+  {t:"Fallacies do not cease to be fallacies because they become fashions.",w:"Illustrated London News",y:1930,th:["commonsense","tradition","sanity"]},
+  /* New York Times interview (1931) */
+  {t:"Democracy means government by the uneducated, while aristocracy means government by the badly educated.",w:"New York Times",y:1931,th:["commonsense","paradox","tradition"]},
+  /* St. Thomas Aquinas (1933) */
+  {t:"Humility is the mother of giants. One sees great things from the valley; only small things from the peak.",w:"St. Thomas Aquinas",y:1933,th:["humility","wonder"]},
+  /* Autobiography (1936) */
   {t:"The object of opening the mind, as of opening the mouth, is to shut it again on something solid.",w:"Autobiography",y:1936,th:["sanity","orthodoxy"]},
-  {t:"The aim of life is appreciation; there is no sense in not appreciating things, and no sense in having more of them if you have less appreciation of them.",w:"Autobiography",y:1936,th:["gratitude","wonder"]},
-  {t:"If you don't see the use of the fence, I certainly won't let you clear it away. Go away and think. Then, when you can come back and tell me that you do see the use of it, I may allow you to destroy it.",w:"The Thing",y:1929,th:["limits","tradition"]},
-  {t:"Too much capitalism does not mean too many capitalists, but too few capitalists.",w:"The Outline of Sanity",y:1926,th:["family","commonsense"]}
+  {t:"The aim of life is appreciation; there is no sense in not appreciating things, and no sense in having more of them if you have less appreciation of them.",w:"Autobiography",y:1936,th:["gratitude","wonder"]}
 ];
 
 // Amazon affiliate tag — replace YOUR_TAG with your Associates ID (e.g. "mysite-20")
@@ -549,9 +630,7 @@ const WORKS = [
 /* ---------------- HELPERS ---------------- */
 const $=(s,r=document)=>r.querySelector(s);
 const $$=(s,r=document)=>[...r.querySelectorAll(s)];
-const themeById=id=>THEMES.find(t=>t.id===id);
-const quotesFor=id=>QUOTES.filter(q=>q.th.includes(id));
-function neighborsOf(id){const s=new Set();for(const[a,b]of EDGES){if(a===id)s.add(b);if(b===id)s.add(a);}return [...s];}
+const quotesFor=id=>QUOTES.filter(q=>q.th&&q.th.includes(id));
 
 /* ---------------- CHAPTERS ---------------- */
 const reduceMotion=matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -567,8 +646,7 @@ $$('[data-go]').forEach(b=>b.addEventListener('click',()=>goChapter(b.dataset.go
   const wrap=$('#entries');
   THEMES.forEach((t,i)=>{
     const fam=FAMILIES[t.fam];
-    const q=quotesFor(t.id)[0];
-    const nb=neighborsOf(t.id);
+    const pool=quotesFor(t.id);const q=pool.length?pool[Math.floor(Math.random()*pool.length)]:null;
     const div=document.createElement('article');
     div.className='entry';div.id='entry-'+t.id;
     let html='<div class="ehead">'+
@@ -577,54 +655,24 @@ $$('[data-go]').forEach(b=>b.addEventListener('click',()=>goChapter(b.dataset.go
       '<span class="seal" style="background:'+fam.color+'">'+fam.label+'</span>'+
       '</div>'+
       '<p class="edesc">'+t.desc+'</p>';
-    if(q){
-      html+='<div class="equote">“'+q.t+'”<span class="esrc">— '+q.w+', '+q.y+'</span></div>';
-    }
-    html+='<p class="seealso"><b>See also</b> &nbsp;';
-    html+=nb.map(n=>'<button class="xref" data-x="'+n+'">'+themeById(n).name+'</button>').join(' · ');
-    html+='</p>';
+    if(q){html+='<div class="equote">“'+q.t+'”<span class="esrc">— '+q.w+', '+q.y+'</span></div>';}
     div.innerHTML=html;
     wrap.appendChild(div);
   });
-  $$('.xref',wrap).forEach(b=>b.addEventListener('click',()=>{
-    const el=$('#entry-'+b.dataset.x);
-    if(!el)return;
-    el.scrollIntoView({behavior:reduceMotion?'auto':'smooth',block:'center'});
-    el.classList.remove('flash');void el.offsetWidth;el.classList.add('flash');
-  }));
 })();
 
 /* ---------------- TREASURY ---------------- */
-let activeFilter='all',searchTerm='';
-(function buildChips(){
-  const wrap=$('#qchips');
-  const mk=(id,label)=>{
-    const b=document.createElement('button');
-    b.className='fbtn'+(id==='all'?' on':'');b.dataset.f=id;b.textContent=label;
-    b.addEventListener('click',()=>{activeFilter=id;$$('.fbtn',wrap).forEach(x=>x.classList.toggle('on',x===b));renderQuotes();});
-    wrap.appendChild(b);
-  };
-  mk('all','All');
-  THEMES.forEach(t=>mk(t.id,t.name));
-})();
+let searchTerm='';
 $('#qsearch').addEventListener('input',e=>{searchTerm=e.target.value.toLowerCase().trim();renderQuotes();});
 
 function renderQuotes(){
-  const wall=$('#qwall');
-  const list=QUOTES.filter(q=>{
-    const f=activeFilter==='all'||q.th.includes(activeFilter);
-    const s=!searchTerm||(q.t+' '+q.w).toLowerCase().includes(searchTerm);
-    return f&&s;
-  });
+  const list=QUOTES.filter(q=>!searchTerm||(q.t+' '+q.w).toLowerCase().includes(searchTerm));
   $('#qcount').textContent=list.length+(list.length===1?' quotation':' quotations')+
-    (activeFilter==='all'?'':' upon “'+themeById(activeFilter).name+'”')+
     (searchTerm?' matching “'+searchTerm+'”':'');
-  wall.innerHTML=list.map(q=>{
-    const tags=q.th.map(id=>'<span class="tt">'+themeById(id).name+'</span>').join('');
-    return '<div class="qbrick"><blockquote><span class="om">“</span>'+q.t+'”</blockquote>'+
-      '<div class="src"><b>'+q.w+'</b> · '+q.y+'</div>'+
-      '<div class="tts">'+tags+'</div></div>';
-  }).join('')||'<p style="color:var(--muted);font-style:italic;text-align:center">No quotation answers to that. Try another word, or let the search go empty and wander instead.</p>';
+  $('#qwall').innerHTML=list.map(q=>
+    '<div class="qbrick"><blockquote><span class="om">“</span>'+q.t+'”</blockquote>'+
+    '<div class="src"><b>'+q.w+'</b> · '+q.y+'</div></div>'
+  ).join('')||'<p style="color:var(--muted);font-style:italic;text-align:center">No quotation answers to that. Try another word, or let the search go empty and wander instead.</p>';
 }
 renderQuotes();
 
