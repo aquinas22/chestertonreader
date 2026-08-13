@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>A Chesterton Reader — An Illustrated Volume</title>
+<title>The Mind of Chesterton — Library, Reader & Idea Atlas</title>
+<meta name="description" content="Read G. K. Chesterton's public-domain works, explore his ideas, search quotations, and unravel difficult passages.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Cinzel:wght@400;500;600&family=Cinzel+Decorative:wght@400;700&display=swap" rel="stylesheet">
@@ -323,16 +324,62 @@
   @media(prefers-reduced-motion:reduce){
     *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
   }
+
+  /* ---------- Mind of Chesterton expansion ---------- */
+  .mastmark{font-family:"Cinzel Decorative",serif;color:var(--accent);font-size:13px;margin-right:auto;white-space:nowrap}
+  .hero-kicker{font-family:"Cinzel",serif;letter-spacing:.28em;text-transform:uppercase;color:var(--gilt);font-size:12px}
+  .library-tools{max-width:880px;margin:20px auto 26px;display:grid;grid-template-columns:1fr auto;gap:10px}
+  .library-tools input,.library-tools select{background:#fbf5e4;border:1px solid var(--paper-edge);padding:11px 13px;color:var(--ink);font:16px "EB Garamond",serif;border-radius:3px}
+  .catalog-stats{text-align:center;color:var(--muted);font-style:italic;margin:0 0 20px}
+  .catalog{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:18px;max-width:920px;margin:auto}
+  .volume{background:rgba(255,250,235,.55);border:1px solid var(--paper-edge);padding:18px;display:flex;flex-direction:column;min-height:245px;box-shadow:0 10px 25px -24px #000}
+  .volume .vtop{display:flex;justify-content:space-between;gap:10px;color:var(--gilt);font:10px "Cinzel",serif;letter-spacing:.13em;text-transform:uppercase}
+  .volume h3{font:600 25px/1.05 "Cormorant Garamond",serif;margin:13px 0 8px;color:var(--accent)}
+  .volume p{font-size:15px;line-height:1.4;color:var(--ink-soft);margin:0 0 16px}
+  .volume .actions{margin-top:auto;display:flex;gap:8px;flex-wrap:wrap}
+  .read-btn,.ghost-btn{border:1px solid var(--accent);background:var(--accent);color:#fff;padding:7px 11px;font:10px "Cinzel",serif;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;text-decoration:none}
+  .ghost-btn{background:transparent;color:var(--accent)}
+  .mind-layout{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(250px,.6fr);gap:24px;max-width:950px;margin:30px auto}
+  #mindCanvas{width:100%;height:540px;border:1px solid var(--paper-edge);background:radial-gradient(circle at 50% 45%,#fbf4df,#ead9b6);cursor:crosshair}
+  .idea-panel{border-left:2px solid var(--gilt);padding:10px 20px;min-height:200px}
+  .idea-panel h3{font:600 32px "Cormorant Garamond",serif;color:var(--accent);margin:0 0 8px}
+  .idea-panel .links{font-size:14px;color:var(--muted)}
+  .timeline{max-width:850px;margin:32px auto;position:relative;padding-left:24px;border-left:2px solid var(--rule)}
+  .era{position:relative;margin:0 0 25px;padding-left:22px}.era::before{content:"";position:absolute;left:-31px;top:7px;width:12px;height:12px;background:var(--gilt);border:3px solid var(--paper);border-radius:50%}
+  .era b{font-family:"Cinzel",serif;color:var(--accent);font-size:12px;letter-spacing:.1em}.era p{margin:3px 0;color:var(--ink-soft)}
+  .reader{position:fixed;inset:0;z-index:100;background:rgba(24,14,8,.82);display:none;align-items:stretch;justify-content:flex-end}
+  .reader.open{display:flex}.reader-shell{width:min(920px,100%);background:var(--paper);display:grid;grid-template-rows:auto 1fr;box-shadow:-30px 0 80px #000;animation:readerIn .35s var(--ease)}
+  @keyframes readerIn{from{transform:translateX(40px);opacity:.4}to{transform:none;opacity:1}}
+  .reader-bar{padding:12px 18px;border-bottom:1px solid var(--paper-edge);display:flex;align-items:center;gap:10px;background:var(--paper-2)}
+  .reader-bar h2{font:600 22px "Cormorant Garamond",serif;margin:0 auto 0 0;color:var(--accent)}
+  .reader-bar button{border:1px solid var(--rule);background:transparent;color:var(--ink);padding:7px 10px;cursor:pointer}
+  .reader-frame{width:100%;height:100%;border:0;background:#fff}
+  .word-card{position:fixed;z-index:140;width:min(360px,calc(100vw - 24px));background:#fffaf0;border:1px solid var(--gilt);box-shadow:0 18px 50px rgba(0,0,0,.35);padding:16px;display:none}
+  .word-card.open{display:block}.word-card h3{margin:0;color:var(--accent);font:600 27px "Cormorant Garamond",serif}.word-card p{font-size:15px;line-height:1.4;margin:7px 0}.word-card small{color:var(--muted)}
+  .selection-tools{position:fixed;z-index:130;display:none;background:var(--leather-1);padding:5px;box-shadow:0 8px 25px #0006}.selection-tools.open{display:flex}.selection-tools button{background:none;border:0;color:var(--paper);font:10px "Cinzel",serif;letter-spacing:.1em;padding:7px 10px;cursor:pointer}
+  .explain-box{max-width:780px;margin:22px auto;padding:20px;border:1px solid var(--paper-edge);background:#fbf5e4;display:none}.explain-box.open{display:block}.explain-box h3{font:600 27px "Cormorant Garamond",serif;color:var(--accent);margin:0 0 8px}
+  .reading-note{max-width:760px;margin:20px auto;text-align:center;color:var(--muted);font-style:italic}
+  .start-actions{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;margin-top:18px}
+  .start-actions .read-btn,.start-actions .ghost-btn{padding:10px 16px}
+  .reader-loading{display:none;margin:auto;color:var(--muted);font-style:italic}
+  @media(max-width:760px){
+    body{padding-inline:8px}.ribbon{justify-content:flex-start;flex-wrap:nowrap;overflow-x:auto;padding-inline:8px;scrollbar-width:none}.ribbon::-webkit-scrollbar{display:none}.ribbon .sep{display:none}.ribbon .nav-btn{flex:0 0 auto}
+    .mastmark{display:none}.leaf{padding-inline:clamp(18px,6vw,34px)}.mind-layout{grid-template-columns:1fr}#mindCanvas{height:420px}.library-tools{grid-template-columns:1fr}.reader-bar .reader-size{display:none}.qwall{columns:1}
+  }
+  @media(max-width:480px){#mindCanvas{height:340px}.reader-bar{padding:9px}.reader-bar h2{font-size:18px}.reader-bar .ghost-btn{display:none}.volume{min-height:0}}
 </style>
 </head>
 <body>
 
 <nav class="ribbon" aria-label="Chapters">
+  <span class="mastmark">The Mind of Chesterton</span>
   <button class="nav-btn active" data-go="front">Frontispiece</button><span class="sep">❧</span>
   <button class="nav-btn" data-go="man">The Man</button><span class="sep">❧</span>
   <button class="nav-btn" data-go="themes">The Themes</button><span class="sep">❧</span>
   <button class="nav-btn" data-go="treasury">The Treasury</button><span class="sep">❧</span>
-  <button class="nav-btn" data-go="library">The Library</button>
+  <button class="nav-btn" data-go="library">The Library</button><span class="sep">❧</span>
+  <button class="nav-btn" data-go="mind">The Mind</button><span class="sep">❧</span>
+  <button class="nav-btn" data-go="journey">The Journey</button>
 </nav>
 
 <div class="book">
@@ -341,6 +388,7 @@
   <section class="leaf active" data-chapter="front">
     <div class="front">
       <p class="of">Being a Reader of</p>
+      <p class="hero-kicker">The Mind of Chesterton</p>
       <h1>G·K· Chesterton</h1>
       <p class="subtitle">The Apostle of Common Sense — his life, his recurring marvels, and a treasury of his own words</p>
 
@@ -369,17 +417,18 @@
         <button class="toc-item" data-go="themes"><span class="rn">II.</span><span class="t">The Themes</span><span class="lead"></span><span class="pg">eighteen marvels</span></button>
         <button class="toc-item" data-go="treasury"><span class="rn">III.</span><span class="t">The Treasury</span><span class="lead"></span><span class="pg">his own words</span></button>
         <button class="toc-item" data-go="library"><span class="rn">IV.</span><span class="t">The Library</span><span class="lead"></span><span class="pg">a bibliography</span></button>
+        <button class="toc-item" data-go="mind"><span class="rn">V.</span><span class="t">The Mind</span><span class="lead"></span><span class="pg">an idea atlas</span></button>
+        <button class="toc-item" data-go="journey"><span class="rn">VI.</span><span class="t">The Journey</span><span class="lead"></span><span class="pg">a life in ideas</span></button>
       </div>
 
       <div class="subscribe-box">
-        <p class="sub-label">A Daily Chesterton</p>
-        <p class="sub-dek">One line from the Apostle of Common Sense, each morning in your inbox.</p>
-        <!-- Replace action URL with your Kit/ConvertKit or Buttondown embed URL -->
-        <form class="sub-form" action="https://app.kit.com/forms/YOUR_FORM_ID/subscriptions" method="POST" target="_blank">
-          <input class="sub-input" type="email" name="email_address" placeholder="your@email.com" required aria-label="Email address">
-          <button class="sub-btn" type="submit">Subscribe</button>
-        </form>
-        <p class="sub-note">No cost. No nonsense. Unsubscribe at any time.</p>
+        <p class="sub-label">Choose a Door</p>
+        <p class="sub-dek">Meet the man, follow an idea, or take a book down from the shelf.</p>
+        <div class="start-actions">
+          <button class="read-btn" type="button" data-go="man">Begin the portrait</button>
+          <button class="ghost-btn" type="button" data-go="library">Browse the library</button>
+        </div>
+        <p class="sub-note">No account, paywall, or reading order required.</p>
       </div>
 
       <p class="colophon-note" style="margin-top:28px">Turn the pages by the ribbon above, or by the table of contents. Every photograph herein is in the public domain; every quotation is genuine.</p>
@@ -470,7 +519,7 @@
     <div class="runhead"><span>A Chesterton Reader</span><span class="pg">Chapter IV</span></div>
     <p class="chapnum">Chapter the Fourth</p>
     <h2 class="chaptitle">The <em>Library</em></h2>
-    <p class="chapdek">Some hundred books and thousands of essays; here are a few of the cornerstones, in the order they were laid.</p>
+    <p class="chapdek">A living catalogue of free Project Gutenberg editions. Search by title or subject, then open a volume in the reading room.</p>
 
     <figure class="plate" style="max-width:300px">
       <div class="frame"><img alt="Sketch of G. K. Chesterton" loading="lazy"
@@ -479,7 +528,10 @@
       <figcaption><span class="pl">Plate IV</span> · The author, sketched</figcaption>
     </figure>
 
-    <div class="biblio" id="biblio"></div>
+    <div class="library-tools"><input id="libSearch" type="search" placeholder="Search titles, subjects, forms…" aria-label="Search the library"><select id="libSort" aria-label="Sort library"><option value="popular">Most read</option><option value="title">Title A–Z</option></select></div>
+    <p class="catalog-stats" id="catalogStats" role="status" aria-live="polite">Opening the catalogue…</p>
+    <div class="catalog" id="catalog"></div>
+    <p class="reading-note">Free editions are supplied by Project Gutenberg and are marked with their ebook number. Availability and copyright rules vary outside the United States.</p>
 
     <div class="colophon">
       Here ends <b>A Chesterton Reader</b>.<br>
@@ -487,7 +539,32 @@
     </div>
   </section>
 
+  <section class="leaf" data-chapter="mind">
+    <div class="runhead"><span>The Mind of Chesterton</span><span class="pg">Chapter V</span></div>
+    <p class="chapnum">An Atlas of Ideas</p><h2 class="chaptitle">The Great <em>Constellation</em></h2>
+    <p class="chapdek">Chesterton rarely leaves an idea alone. Select a star to see what it means, the works in which it burns brightest, and the neighboring ideas it illuminates.</p>
+    <div class="mind-layout"><canvas id="mindCanvas" tabindex="0" role="img" aria-label="Interactive graph of Chesterton's ideas; click or use the arrow keys to explore"></canvas><aside class="idea-panel" id="ideaPanel" aria-live="polite"><h3>Wonder</h3><p>Begin with astonishment: the world exists, though it need not have existed. Everything else radiates from that first surprise.</p><p class="links">Select any point in the constellation.</p></aside></div>
+  </section>
+
+  <section class="leaf" data-chapter="journey">
+    <div class="runhead"><span>The Mind of Chesterton</span><span class="pg">Chapter VI</span></div>
+    <p class="chapnum">A Life in Ideas</p><h2 class="chaptitle">From Nightmare to <em>Wonder</em></h2>
+    <p class="chapdek">Not merely dates: the changing questions behind the books.</p>
+    <div class="timeline">
+      <div class="era"><b>1874–1899 · The bewildered artist</b><p>Born in Kensington; trained in art; endured a youthful crisis of skepticism and began rebuilding a philosophy from gratitude.</p></div>
+      <div class="era"><b>1900–1908 · Paradox finds a creed</b><p>From literary criticism and comic fantasy through <em>Heretics</em>, <em>Thursday</em>, and <em>Orthodoxy</em>: wonder becomes an argument.</p></div>
+      <div class="era"><b>1909–1914 · The common man</b><p>Essays, social criticism, Father Brown, and the defense of home, limits, local loyalties, and ordinary judgment.</p></div>
+      <div class="era"><b>1914–1922 · War and history</b><p>Patriotism is tested by catastrophe; controversy widens into a philosophy of nations, memory, and civilization.</p></div>
+      <div class="era"><b>1922–1936 · Conversion and synthesis</b><p>Reception into the Catholic Church; saints, economic justice, and sweeping sacred history culminate in a grateful autobiography.</p></div>
+    </div>
+    <div class="explain-box open"><h3>How to read this library</h3><p>Double-click any unfamiliar word on these pages for a definition. Select a difficult sentence or passage and choose <b>Explain passage</b>; the guide will identify paradoxes, themes, contrasts, and allusions in plain language.</p></div>
+  </section>
+
 </div>
+
+<div class="reader" id="reader" role="dialog" aria-modal="true" aria-label="Reading room"><div class="reader-shell"><div class="reader-bar"><h2 id="readerTitle">Reading room</h2><button class="reader-size" data-size="down" aria-label="Smaller type">A−</button><button class="reader-size" data-size="up" aria-label="Larger type">A+</button><a class="ghost-btn" id="downloadBook" href="#" target="_blank" rel="noopener">Download</a><button id="closeReader" aria-label="Close reader">Close ×</button></div><iframe class="reader-frame" id="readerFrame" title="Book text" sandbox="allow-scripts allow-popups"></iframe></div></div>
+<div class="selection-tools" id="selectionTools"><button id="explainSelection">Explain passage</button><button id="copySelection">Copy</button></div>
+<aside class="word-card" id="wordCard"><button style="float:right;border:0;background:none;cursor:pointer" aria-label="Close definition">×</button><h3 id="wordTitle"></h3><small id="wordKind"></small><p id="wordDefinition">Looking it up…</p></aside>
 
 <footer class="outer">An illustrated volume in the Chestertonian spirit — a map for the marvel of the ordinary.</footer>
 
@@ -721,11 +798,15 @@ const quotesFor=id=>QUOTES.filter(q=>q.th&&q.th.includes(id));
 /* ---------------- CHAPTERS ---------------- */
 const reduceMotion=matchMedia('(prefers-reduced-motion: reduce)').matches;
 function goChapter(name){
+  if(!$('.leaf[data-chapter="'+name+'"]'))return;
   $$('.leaf').forEach(l=>l.classList.toggle('active',l.dataset.chapter===name));
   $$('.nav-btn').forEach(b=>b.classList.toggle('active',b.dataset.go===name));
+  history.replaceState(null,'','#'+name);
   window.scrollTo({top:0,behavior:reduceMotion?'auto':'smooth'});
+  if(name==='mind')requestAnimationFrame(drawMind);
 }
 $$('[data-go]').forEach(b=>b.addEventListener('click',()=>goChapter(b.dataset.go)));
+const initialChapter=location.hash.slice(1);if(initialChapter&&$('.leaf[data-chapter="'+initialChapter+'"]'))goChapter(initialChapter);
 
 /* ---------------- THEMES ENTRIES ---------------- */
 (function buildEntries(){
@@ -811,6 +892,7 @@ renderQuotes();
 /* ---------------- LIBRARY ---------------- */
 (function buildBiblio(){
   const wrap=$('#biblio');
+  if(!wrap)return;
   WORKS.forEach(wk=>{
     const d=document.createElement('div');d.className='bk';
     const btn = wk.asin
@@ -825,6 +907,82 @@ renderQuotes();
     wrap.appendChild(d);
   });
 })();
+
+/* ---------------- THE FULL LIBRARY ---------------- */
+let libraryBooks=[],libraryIsLive=false;
+const subjectKind=subjects=>{
+  const s=subjects.join(' ').toLowerCase();
+  if(s.includes('poetry'))return'Poetry';if(s.includes('father brown')||s.includes('detective'))return'Father Brown';
+  if(s.includes('fiction'))return'Fiction';if(s.includes('religion')||s.includes('christian'))return'Faith';
+  if(s.includes('biograph'))return'Biography';if(s.includes('criticism'))return'Criticism';return'Essays & thought';
+};
+function normalizedBook(b){
+  const formats=b.formats||{};
+  return {id:b.id,title:b.title,subjects:b.subjects||[],summary:(b.summaries&&b.summaries[0])||'',downloads:b.download_count||0,
+    cover:formats['image/jpeg']||'',read:formats['text/html; charset=utf-8']||formats['text/html']||('https://www.gutenberg.org/ebooks/'+b.id+'.html.images'),
+    download:formats['application/epub+zip']||formats['text/plain; charset=utf-8']||('https://www.gutenberg.org/ebooks/'+b.id)};
+}
+function renderLibrary(){
+  const term=$('#libSearch').value.toLowerCase().trim(),sort=$('#libSort').value;
+  let books=libraryBooks.filter(b=>(b.title+' '+b.subjects.join(' ')).toLowerCase().includes(term));
+  books.sort(sort==='title'?(a,b)=>a.title.localeCompare(b.title):(a,b)=>b.downloads-a.downloads);
+  $('#catalogStats').textContent=books.length+' edition'+(books.length===1?'':'s')+(term?' matching “'+term+'”':'')+(libraryIsLive?' · live Project Gutenberg catalogue':' · curated shelf; catalogue is temporarily offline');
+  $('#catalog').innerHTML=books.map(b=>'<article class="volume"><div class="vtop"><span>'+subjectKind(b.subjects)+'</span><span>'+(b.id?'PG '+b.id:b.year)+'</span></div><h3>'+escapeHtml(b.title)+'</h3><p>'+escapeHtml(b.summary||b.subjects.slice(0,2).join(' · ')||'A free digital edition from Project Gutenberg.')+'</p><div class="actions">'+(b.read?'<button class="read-btn" data-read="'+b.id+'">Read now</button>':'')+'<a class="ghost-btn" href="'+(b.id?'https://www.gutenberg.org/ebooks/'+b.id:'https://www.gutenberg.org/ebooks/search/?query='+encodeURIComponent(b.title+' Chesterton'))+'" target="_blank" rel="noopener">Find edition ↗</a></div></article>').join('')||'<p>No volumes answer that search. Try a shorter title or a broader subject.</p>';
+}
+function escapeHtml(s){const d=document.createElement('div');d.textContent=s;return d.innerHTML;}
+async function loadLibrary(){
+  let url='https://gutendex.com/books/?search=Chesterton%2C%20G.%20K.',pages=0,found=[];
+  try{
+    while(url&&pages<4){const data=await fetch(url).then(r=>{if(!r.ok)throw Error('catalog');return r.json()});found.push(...data.results);url=data.next;pages++;}
+    libraryBooks=found.filter(b=>(b.authors||[]).some(a=>/^Chesterton, G\. K\./.test(a.name))).map(normalizedBook);libraryIsLive=true;
+    if(!libraryBooks.length)throw Error('empty catalogue');
+  }catch(_){libraryIsLive=false;libraryBooks=WORKS.map((w,i)=>({id:'',year:w.y,title:w.t,subjects:[w.k],summary:w.d,downloads:WORKS.length-i,read:'',download:''}));}
+  renderLibrary();
+}
+$('#libSearch').addEventListener('input',renderLibrary);$('#libSort').addEventListener('change',renderLibrary);loadLibrary();
+
+/* ---------------- READING ROOM ---------------- */
+const reader=$('#reader'),frame=$('#readerFrame');let readerScale=100;
+$('#catalog').addEventListener('click',async e=>{const btn=e.target.closest('[data-read]');if(!btn)return;const b=libraryBooks.find(x=>String(x.id)===btn.dataset.read);if(!b||!b.read)return;
+  $('#readerTitle').textContent=b.title;$('#downloadBook').href=b.download;reader.classList.add('open');document.body.style.overflow='hidden';
+  frame.srcdoc='<p style="font:20px Georgia;padding:12vh 15%;color:#574631">Opening the volume…</p>';
+  try{const html=await fetch(b.read).then(r=>{if(!r.ok)throw Error();return r.text()}),doc=new DOMParser().parseFromString(html,'text/html');doc.querySelectorAll('script,style,link,nav').forEach(n=>n.remove());
+    const base=new URL(b.read);doc.querySelectorAll('[src]').forEach(n=>{try{n.src=new URL(n.getAttribute('src'),base).href}catch(_){}});doc.querySelectorAll('a[href]').forEach(n=>{try{n.href=new URL(n.getAttribute('href'),base).href}catch(_){}});
+    const content=doc.body.innerHTML,bridge='<script>document.addEventListener("dblclick",function(e){var s=getSelection().toString().trim();if(/^[-A-Za-z\\\'’]{2,40}$/.test(s))parent.postMessage({kind:"define",word:s,x:e.clientX,y:e.clientY},"*")});document.addEventListener("mouseup",function(){setTimeout(function(){var s=getSelection().toString().trim();if(s.length>12)parent.postMessage({kind:"passage",text:s},"*")},0)});<\/script>';
+    frame.srcdoc='<!doctype html><meta charset="utf-8"><base href="'+base.href+'"><style>body{max-width:680px;margin:7vh auto;padding:0 7vw 18vh;font:20px/1.75 Georgia,serif;color:#34291a;background:#fffdf7}h1,h2,h3{text-align:center;color:#7c2330;line-height:1.15;margin-top:2em}img{max-width:100%;height:auto}p{text-align:justify}a{color:#7c2330}::selection{background:#ead5a8}</style>'+content+bridge;
+  }catch(_){frame.removeAttribute('srcdoc');frame.src=b.read;}});
+addEventListener('message',e=>{if(!e.data)return;if(e.data.kind==='define'){const r=frame.getBoundingClientRect();defineWord(e.data.word,r.left+e.data.x,r.top+e.data.y)}if(e.data.kind==='passage'){chosenText=e.data.text;selectionTools.style.right='24px';selectionTools.style.left='auto';selectionTools.style.top='70px';selectionTools.classList.add('open')}});
+function closeReader(){reader.classList.remove('open');frame.src='about:blank';document.body.style.overflow='';}
+$('#closeReader').addEventListener('click',closeReader);reader.addEventListener('click',e=>{if(e.target===reader)closeReader()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeReader();closeWord();}});
+$$('[data-size]').forEach(b=>b.addEventListener('click',()=>{readerScale=Math.max(80,Math.min(140,readerScale+(b.dataset.size==='up'?10:-10)));frame.style.zoom=readerScale+'%';}));
+
+/* ---------------- WORDS & PASSAGES ---------------- */
+const wordCard=$('#wordCard');function closeWord(){wordCard.classList.remove('open')}wordCard.querySelector('button').addEventListener('click',closeWord);
+async function defineWord(word,x,y){word=word.replace(/[^A-Za-z'-]/g,'');if(!word||word.length>40)return;
+  $('#wordTitle').textContent=word;$('#wordKind').textContent='Dictionary';$('#wordDefinition').textContent='Looking it up…';wordCard.style.left=Math.min(x+10,innerWidth-380)+'px';wordCard.style.top=Math.min(y+12,innerHeight-220)+'px';wordCard.classList.add('open');
+  try{const d=await fetch('https://api.dictionaryapi.dev/api/v2/entries/en/'+encodeURIComponent(word)).then(r=>{if(!r.ok)throw Error();return r.json()});const m=d[0].meanings[0];$('#wordKind').textContent=m.partOfSpeech||'Definition';$('#wordDefinition').textContent=m.definitions[0].definition;}catch(_){$('#wordDefinition').textContent='No concise definition was found. Try selecting the surrounding passage for a contextual explanation.';}
+}
+document.addEventListener('dblclick',e=>{if(e.target.closest('button,a,input,select'))return;const s=getSelection().toString().trim();if(/^[-A-Za-z']{2,40}$/.test(s))defineWord(s,e.clientX,e.clientY)});
+const selectionTools=$('#selectionTools');let chosenText='';
+document.addEventListener('mouseup',e=>{setTimeout(()=>{const sel=getSelection(),text=sel.toString().trim();if(text.length>12&&!e.target.closest('.selection-tools')){chosenText=text;const r=sel.getRangeAt(0).getBoundingClientRect();selectionTools.style.left=Math.min(r.left,innerWidth-210)+'px';selectionTools.style.top=Math.max(8,r.top-48)+'px';selectionTools.classList.add('open')}else if(!e.target.closest('.selection-tools'))selectionTools.classList.remove('open')},0)});
+function passageGuide(text){const low=text.toLowerCase(),hits=THEMES.filter(t=>low.includes(t.name.toLowerCase())||low.includes(t.id)||t.desc.toLowerCase().split(/\W+/).filter(w=>w.length>6).some(w=>low.includes(w))).slice(0,3);
+  const paradox=/\b(but|yet|although|except|opposite|contrary|nevertheless)\b/i.test(text);let lead=paradox?'The sentence turns on a Chestertonian reversal: two ideas that look opposed are made to reveal one another. ':'Chesterton is asking you to look past the abstract phrase and recover a concrete human experience. ';
+  return lead+(hits.length?'It touches '+hits.map(h=>h.name).join(', ')+'. ':'Its main pressure is the difference between taking the world for granted and receiving it as something surprising. ')+'Read the key nouns literally first, then ask which modern assumption the sentence is teasing or overturning.';
+}
+$('#explainSelection').addEventListener('click',()=>{selectionTools.classList.remove('open');const leaf=$('.leaf.active');let box=$('.explain-box',leaf);if(!box){box=document.createElement('div');box.className='explain-box';leaf.appendChild(box)}box.innerHTML='<h3>Passage guide</h3><blockquote>“'+escapeHtml(chosenText.slice(0,500))+'”</blockquote><p>'+passageGuide(chosenText)+'</p><small>Interpretive guide generated from this library’s theme map; it is a reading aid, not a quotation from Chesterton.</small>';box.classList.add('open');box.scrollIntoView({behavior:reduceMotion?'auto':'smooth',block:'center'});});
+$('#copySelection').addEventListener('click',()=>{navigator.clipboard&&navigator.clipboard.writeText(chosenText);selectionTools.classList.remove('open')});
+
+/* ---------------- IDEA CONSTELLATION ---------------- */
+const ideaLinks={wonder:['gratitude','fairyland','joy'],gratitude:['wonder','humility','family'],paradox:['sanity','orthodoxy','commonsense'],orthodoxy:['cross','tradition','courage'],fairyland:['wonder','limits','family'],tradition:['family','patriotism','commonsense'],sanity:['paradox','humility','mystery'],joy:['wonder','courage','humility'],family:['tradition','limits','commonsense'],cross:['orthodoxy','courage','humility'],limits:['fairyland','family','liberty'],commonsense:['tradition','sanity','family']};
+const ideaNodes=THEMES.slice(0,18).map((t,i)=>({...t,x:.5+.38*Math.cos(i*Math.PI*2/18),y:.5+.38*Math.sin(i*Math.PI*2/18)}));
+function drawMind(){const c=$('#mindCanvas');if(!c)return;const d=devicePixelRatio||1,w=c.clientWidth,h=c.clientHeight;c.width=w*d;c.height=h*d;const x=c.getContext('2d');x.scale(d,d);x.clearRect(0,0,w,h);
+  x.strokeStyle='rgba(124,35,48,.2)';x.lineWidth=1;ideaNodes.forEach(n=>(ideaLinks[n.id]||[]).forEach(id=>{const q=ideaNodes.find(v=>v.id===id);if(q){x.beginPath();x.moveTo(n.x*w,n.y*h);x.lineTo(q.x*w,q.y*h);x.stroke()}}));
+  ideaNodes.forEach((n,i)=>{const px=n.x*w,py=n.y*h;x.beginPath();x.arc(px,py,i===0?9:6,0,Math.PI*2);x.fillStyle=getComputedStyle(document.documentElement).getPropertyValue('--fam-'+n.fam);x.fill();x.font=(i===0?'600 17px':'14px')+' EB Garamond';x.fillStyle='#34291a';x.textAlign='center';x.fillText(n.name,px,py-12)});}
+$('#mindCanvas').addEventListener('click',e=>{const c=e.currentTarget,r=c.getBoundingClientRect(),mx=e.clientX-r.left,my=e.clientY-r.top;const n=ideaNodes.reduce((a,b)=>Math.hypot(b.x*r.width-mx,b.y*r.height-my)<Math.hypot(a.x*r.width-mx,a.y*r.height-my)?b:a);if(Math.hypot(n.x*r.width-mx,n.y*r.height-my)>55)return;const works=[...new Set(quotesFor(n.id).map(q=>q.w))].slice(0,4);$('#ideaPanel').innerHTML='<h3>'+n.name+'</h3><p>'+n.desc+'</p><p class="links"><b>Connected:</b> '+(ideaLinks[n.id]||[]).map(id=>{const q=THEMES.find(t=>t.id===id);return q?q.name:id}).join(' · ')+'<br><b>Read in:</b> '+(works.join(' · ')||'the essays and major works')+'</p>';});
+let selectedIdea=0;function showIdea(n){const works=[...new Set(quotesFor(n.id).map(q=>q.w))].slice(0,4);$('#ideaPanel').innerHTML='<h3>'+n.name+'</h3><p>'+n.desc+'</p><p class="links"><b>Connected:</b> '+(ideaLinks[n.id]||[]).map(id=>{const q=THEMES.find(t=>t.id===id);return q?q.name:id}).join(' · ')+'<br><b>Read in:</b> '+(works.join(' · ')||'the essays and major works')+'</p>';}
+$('#mindCanvas').addEventListener('keydown',e=>{if(!['ArrowRight','ArrowDown','ArrowLeft','ArrowUp'].includes(e.key))return;e.preventDefault();selectedIdea=(selectedIdea+(e.key==='ArrowRight'||e.key==='ArrowDown'?1:-1)+ideaNodes.length)%ideaNodes.length;showIdea(ideaNodes[selectedIdea]);});
+addEventListener('resize',drawMind);setTimeout(drawMind,100);
 </script>
 </body>
 </html>
