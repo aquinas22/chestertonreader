@@ -345,8 +345,14 @@
   .idea-panel h3{font:600 32px "Cormorant Garamond",serif;color:var(--accent);margin:0 0 8px}
   .idea-panel .links{font-size:14px;color:var(--muted)}
   .timeline{max-width:850px;margin:32px auto;position:relative;padding-left:24px;border-left:2px solid var(--rule)}
-  .era{position:relative;margin:0 0 25px;padding-left:22px}.era::before{content:"";position:absolute;left:-31px;top:7px;width:12px;height:12px;background:var(--gilt);border:3px solid var(--paper);border-radius:50%}
+  .era{position:relative;margin:0 0 25px;padding:4px 8px 4px 22px;transition:transform .25s var(--ease),background .25s}.era:hover{transform:translateX(7px);background:rgba(156,108,31,.06)}.era::before{content:"";position:absolute;left:-31px;top:7px;width:12px;height:12px;background:var(--gilt);border:3px solid var(--paper);border-radius:50%;transition:transform .25s,box-shadow .25s}.era:hover::before{transform:scale(1.25);box-shadow:0 0 0 5px rgba(156,108,31,.12)}
   .era b{font-family:"Cinzel",serif;color:var(--accent);font-size:12px;letter-spacing:.1em}.era p{margin:3px 0;color:var(--ink-soft)}
+  .reading-paths{max-width:900px;margin:38px auto 10px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.reading-path{position:relative;overflow:hidden;padding:23px 21px;background:#fbf5e4;border:1px solid var(--paper-edge);transition:transform .25s,box-shadow .25s}.reading-path:hover{transform:translateY(-5px);box-shadow:0 18px 30px -25px #000}.reading-path::after{content:"❦";position:absolute;right:12px;bottom:3px;color:var(--rule);font-size:35px}.reading-path small{font:10px "Cinzel",serif;letter-spacing:.15em;color:var(--gilt);text-transform:uppercase}.reading-path h3{font:600 26px/1.05 "Cormorant Garamond",serif;color:var(--accent);margin:9px 0}.reading-path p{font-size:15px;line-height:1.45;color:var(--ink-soft);margin:0 0 13px}.reading-path ol{margin:0;padding-left:19px;font-size:14px;color:var(--muted)}.reading-path li{margin:5px 0}
+  .argument-wheel{max-width:940px;margin:38px auto;display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--rule-soft);border:1px solid var(--rule-soft)}.argument-wheel>div{position:relative;min-height:245px;padding:24px 19px;background:#f8efd9;overflow:hidden;transition:transform .3s var(--ease),background .3s}.argument-wheel>div:hover{z-index:2;transform:translateY(-7px);background:#fff8e8;box-shadow:0 18px 30px -25px #000}.argument-wheel span{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--accent);color:var(--paper);font:15px "Cinzel",serif}.argument-wheel b{display:block;margin:35px 0 8px;font:600 24px/1 "Cormorant Garamond",serif;color:var(--accent)}.argument-wheel p{margin:0;color:var(--ink-soft);font-size:15px;line-height:1.45}.argument-wheel>div::after{content:"→";position:absolute;right:-9px;top:28px;color:var(--gilt);font-size:25px;z-index:3}.argument-wheel>div:last-child::after{content:"❦";right:13px;bottom:5px;top:auto;color:var(--rule-soft);font-size:40px}
+  .critical-grid{max-width:900px;margin:25px auto;display:grid;grid-template-columns:1fr 1fr;gap:16px}.critical-grid article{padding:25px;background:rgba(255,250,235,.55);border:1px solid var(--paper-edge);position:relative;overflow:hidden;transition:transform .3s,box-shadow .3s}.critical-grid article:hover{transform:translateY(-4px);box-shadow:0 20px 30px -28px #000}.critical-grid article::before{content:"";position:absolute;inset:0 auto 0 0;width:3px;background:var(--accent);transform:scaleY(0);transform-origin:bottom;transition:transform .4s}.critical-grid article:hover::before{transform:scaleY(1)}.critical-grid small{font:10px "Cinzel",serif;letter-spacing:.15em;color:var(--gilt)}.critical-grid h3{font:600 29px "Cormorant Garamond",serif;color:var(--accent);margin:8px 0}.critical-grid p{margin:0;font-size:16px;line-height:1.55;color:var(--ink-soft)}
+  .case-study{max-width:830px;margin:48px auto 32px;padding:34px;border:1px solid var(--rule);background:linear-gradient(135deg,#fbf4df,#eee0bd);box-shadow:12px 12px 0 rgba(124,35,48,.05)}.case-study h3{text-align:center;font:italic 600 30px/1.2 "Cormorant Garamond",serif;color:var(--accent);margin:10px auto 27px}.case-steps{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--rule-soft)}.case-steps p{margin:0;padding:18px;background:var(--paper);font-size:15px;line-height:1.5}.case-steps b{display:block;margin-bottom:5px;color:var(--accent);font-family:"Cinzel",serif;font-size:10px;letter-spacing:.08em;text-transform:uppercase}.reading-against{max-width:760px;margin:40px auto;text-align:center}.reading-against h3{font:600 32px "Cormorant Garamond",serif;color:var(--accent);margin-bottom:10px}.reading-against p{font-size:18px;line-height:1.65;color:var(--ink-soft)}
+  .reveal-on-scroll{opacity:0;transform:translateY(24px);transition:opacity .65s var(--ease),transform .65s var(--ease)}.reveal-on-scroll.seen{opacity:1;transform:none}.plate .frame{transition:transform .5s var(--ease),box-shadow .5s}.plate:hover .frame{transform:rotate(-1deg) translateY(-5px);box-shadow:0 2px 0 #d9c79f,0 28px 40px -24px rgba(0,0,0,.7)}.fleuron span{animation:fleuron-breathe 4s ease-in-out infinite}.qbrick{transition:transform .25s,background .25s}.qbrick:hover{transform:translateX(5px);background:rgba(156,108,31,.05)}
+  @keyframes fleuron-breathe{50%{transform:scale(1.18) rotate(8deg);color:var(--accent)}}
   .reader{position:fixed;inset:0;z-index:100;background:rgba(24,14,8,.82);display:none;align-items:stretch;justify-content:flex-end}
   .reader.open{display:flex}.reader-shell{width:min(920px,100%);background:var(--paper);display:grid;grid-template-rows:auto 1fr;box-shadow:-30px 0 80px #000;animation:readerIn .35s var(--ease)}
   @keyframes readerIn{from{transform:translateX(40px);opacity:.4}to{transform:none;opacity:1}}
@@ -364,9 +370,9 @@
   .reader-loading{display:none;margin:auto;color:var(--muted);font-style:italic}
   @media(max-width:760px){
     body{padding-inline:8px}.ribbon{justify-content:flex-start;flex-wrap:nowrap;overflow-x:auto;padding-inline:8px;scrollbar-width:none}.ribbon::-webkit-scrollbar{display:none}.ribbon .sep{display:none}.ribbon .nav-btn{flex:0 0 auto}
-    .mastmark{display:none}.leaf{padding-inline:clamp(18px,6vw,34px)}.mind-layout{grid-template-columns:1fr}#mindCanvas{height:420px}.library-tools{grid-template-columns:1fr}.reader-bar .reader-size{display:none}.qwall{columns:1}
+    .mastmark{display:none}.leaf{padding-inline:clamp(18px,6vw,34px)}.mind-layout{grid-template-columns:1fr}#mindCanvas{height:420px}.library-tools{grid-template-columns:1fr}.reader-bar .reader-size{display:none}.qwall{columns:1}.reading-paths{grid-template-columns:1fr}.argument-wheel{grid-template-columns:1fr 1fr}.critical-grid{grid-template-columns:1fr}.case-steps{grid-template-columns:1fr}
   }
-  @media(max-width:480px){#mindCanvas{height:340px}.reader-bar{padding:9px}.reader-bar h2{font-size:18px}.reader-bar .ghost-btn{display:none}.volume{min-height:0}}
+  @media(max-width:480px){#mindCanvas{height:340px}.reader-bar{padding:9px}.reader-bar h2{font-size:18px}.reader-bar .ghost-btn{display:none}.volume{min-height:0}.argument-wheel{grid-template-columns:1fr}.argument-wheel>div{min-height:0}.argument-wheel>div::after{content:"↓";right:16px;top:auto;bottom:-12px}.case-study{padding:22px 16px}.critical-grid article{padding:21px}}
 </style>
 </head>
 <body>
@@ -379,7 +385,8 @@
   <button class="nav-btn" data-go="treasury">The Treasury</button><span class="sep">❧</span>
   <button class="nav-btn" data-go="library">The Library</button><span class="sep">❧</span>
   <button class="nav-btn" data-go="mind">The Mind</button><span class="sep">❧</span>
-  <button class="nav-btn" data-go="journey">The Journey</button>
+  <button class="nav-btn" data-go="journey">The Journey</button><span class="sep">❧</span>
+  <button class="nav-btn" data-go="criticism">The Measure</button>
 </nav>
 
 <div class="book">
@@ -419,6 +426,7 @@
         <button class="toc-item" data-go="library"><span class="rn">IV.</span><span class="t">The Library</span><span class="lead"></span><span class="pg">a bibliography</span></button>
         <button class="toc-item" data-go="mind"><span class="rn">V.</span><span class="t">The Mind</span><span class="lead"></span><span class="pg">an idea atlas</span></button>
         <button class="toc-item" data-go="journey"><span class="rn">VI.</span><span class="t">The Journey</span><span class="lead"></span><span class="pg">a life in ideas</span></button>
+        <button class="toc-item" data-go="criticism"><span class="rn">VII.</span><span class="t">The Measure</span><span class="lead"></span><span class="pg">method & criticism</span></button>
       </div>
 
       <div class="subscribe-box">
@@ -557,7 +565,39 @@
       <div class="era"><b>1914–1922 · War and history</b><p>Patriotism is tested by catastrophe; controversy widens into a philosophy of nations, memory, and civilization.</p></div>
       <div class="era"><b>1922–1936 · Conversion and synthesis</b><p>Reception into the Catholic Church; saints, economic justice, and sweeping sacred history culminate in a grateful autobiography.</p></div>
     </div>
+    <div class="fleuron"><span>❦</span></div>
+    <p class="chapnum">Three Ways In</p><h2 class="chaptitle">Choose Your <em>Adventure</em></h2>
+    <p class="chapdek">Chesterton is best entered through a door that already interests you. Each short path moves from invitation to argument to a wider view.</p>
+    <div class="reading-paths">
+      <article class="reading-path"><small>For the curious</small><h3>The World Made Strange</h3><p>Begin with delight, then discover why gratitude becomes a philosophy.</p><ol><li><em>Tremendous Trifles</em></li><li><em>The Club of Queer Trades</em></li><li><em>Orthodoxy</em></li></ol></article>
+      <article class="reading-path"><small>For story lovers</small><h3>Mystery & Adventure</h3><p>Meet the poet-detective, the philosophical policeman, and the man who walks around the world.</p><ol><li><em>The Innocence of Father Brown</em></li><li><em>The Man Who Was Thursday</em></li><li><em>Manalive</em></li></ol></article>
+      <article class="reading-path"><small>For big questions</small><h3>The Argument of History</h3><p>Follow the defense of common life into civilization, creed, and the person of Christ.</p><ol><li><em>Heretics</em></li><li><em>Orthodoxy</em></li><li><em>The Everlasting Man</em></li></ol></article>
+    </div>
     <div class="explain-box open"><h3>How to read this library</h3><p>Double-click any unfamiliar word on these pages for a definition. Select a difficult sentence or passage and choose <b>Explain passage</b>; the guide will identify paradoxes, themes, contrasts, and allusions in plain language.</p></div>
+  </section>
+
+  <section class="leaf" data-chapter="criticism">
+    <div class="runhead"><span>The Mind of Chesterton</span><span class="pg">Chapter VII</span></div>
+    <p class="chapnum">How the Argument Moves</p><h2 class="chaptitle">Taking the Measure of a <em>Paradox</em></h2>
+    <p class="chapdek">Admiration becomes more useful when it learns discrimination. This chapter asks what Chesterton’s method can reveal, where it can distort, and how to read him with both delight and judgment.</p>
+    <div class="argument-wheel" aria-label="Chesterton's recurring argumentative method">
+      <div><span>1</span><b>The commonplace</b><p>Begin with a thing made invisible by familiarity: a fence, a home, a promise, a sunrise.</p></div>
+      <div><span>2</span><b>The reversal</b><p>Turn the fashionable description inside out until its hidden assumption becomes visible.</p></div>
+      <div><span>3</span><b>The image</b><p>Replace abstraction with a concrete picture large enough to be remembered and tested.</p></div>
+      <div><span>4</span><b>The recovery</b><p>Return the ordinary thing to the reader as strange, contingent, and worthy of gratitude.</p></div>
+    </div>
+    <div class="fleuron"><span>❦</span></div>
+    <div class="critical-grid">
+      <article><small>HIS GREAT STRENGTH</small><h3>Defamiliarization</h3><p>Chesterton makes habit confess that it is not knowledge. By describing the familiar as if seen for the first time, he restores moral and imaginative weight to things dismissed as merely conventional. The method is strongest when a slogan has concealed an experience.</p></article>
+      <article><small>THE PRODUCTIVE DANGER</small><h3>Compression</h3><p>A paradox compresses an argument into a memorable collision. That gives it force, but can remove historical causes, institutional detail, and awkward exceptions. A brilliant sentence may be a doorway into inquiry; it is rarely the whole house.</p></article>
+      <article><small>THE MORAL CENTER</small><h3>Human Scale</h3><p>His social criticism repeatedly asks whether a system serves embodied people, households, neighborhoods, and meaningful work. This remains a powerful diagnostic even when his economic prescriptions are incomplete or their implementation is unclear.</p></article>
+      <article><small>THE READER’S TASK</small><h3>Test the Contrast</h3><p>When he offers two opposed pictures, ask what each includes and excludes. Does the contrast illuminate a real distinction, or turn a spectrum into a duel? Keep the insight while reopening whatever the rhetoric closed too quickly.</p></article>
+    </div>
+    <section class="case-study">
+      <span class="chapnum">A Worked Reading</span><h3>“The madman is not the man who has lost his reason…”</h3>
+      <div class="case-steps"><p><b>Surface claim.</b> Madness is not simple irrationality but reason operating inside a world too narrow to admit correction.</p><p><b>Rhetorical move.</b> The expected opposition—reason versus madness—is reversed. Excessive internal consistency becomes a symptom rather than a cure.</p><p><b>What it illuminates.</b> A theory can explain every objection by absorbing it as proof. Logical connection is not sufficient when premises cannot meet reality.</p><p><b>What to question.</b> The metaphor is philosophical, not a clinical account of mental illness. Read it as a critique of sealed systems, not as psychology or diagnosis.</p></div>
+    </section>
+    <div class="reading-against"><h3>Reading with—and against—Chesterton</h3><p>Let him challenge the present without allowing “tradition” to settle every dispute. Let his defense of limits question fantasies of control while asking who historically bore those limits without choosing them. Let his comedy puncture prestige, then notice when comedy makes an opponent smaller than the argument deserves. The mature pleasure of reading him is neither discipleship nor dismissal: it is the exhilaration of meeting a mind vivid enough to sharpen one’s own.</p></div>
   </section>
 
 </div>
@@ -807,6 +847,15 @@ function goChapter(name){
 }
 $$('[data-go]').forEach(b=>b.addEventListener('click',()=>goChapter(b.dataset.go)));
 const initialChapter=location.hash.slice(1);if(initialChapter&&$('.leaf[data-chapter="'+initialChapter+'"]'))goChapter(initialChapter);
+
+/* Editorial reveals: motion follows the reader's scroll rather than playing all at once. */
+const revealTargets=$$('.plate,.entry,.volume,.era,.reading-path,.argument-wheel>div,.critical-grid article,.case-study,.reading-against');
+if(!reduceMotion&&'IntersectionObserver'in window){
+  const revealObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{
+    if(entry.isIntersecting){entry.target.classList.add('seen');revealObserver.unobserve(entry.target)}
+  }),{threshold:.12,rootMargin:'0px 0px -35px'});
+  revealTargets.forEach((node,index)=>{node.classList.add('reveal-on-scroll');node.style.transitionDelay=(index%4)*55+'ms';revealObserver.observe(node)});
+}else revealTargets.forEach(node=>node.classList.add('seen'));
 
 /* ---------------- THEMES ENTRIES ---------------- */
 (function buildEntries(){
